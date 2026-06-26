@@ -17,6 +17,7 @@
     --ink-soft: #3D3833;
     --gold: #B8956A;
     --rule: #C9BFA8;
+    --green: #4A6B3F;
     --paper-shadow: rgba(26, 24, 21, 0.08);
   }
 
@@ -60,7 +61,7 @@
   .masthead {
     border-bottom: 2px solid var(--ink);
     padding-bottom: 32px;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: end;
@@ -130,10 +131,73 @@
     font-size: 12px;
     color: var(--ink-soft);
     letter-spacing: 0.05em;
-    margin-bottom: 80px;
+    margin-bottom: 50px;
     padding-top: 16px;
     border-top: 1px solid var(--rule);
     max-width: 820px;
+  }
+
+  /* === TAB NAVIGATION === */
+  .tabs {
+    position: sticky;
+    top: 0;
+    background: var(--cream);
+    z-index: 50;
+    display: flex;
+    gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 2px solid var(--ink);
+    margin: 0 -60px 60px;
+    padding: 0 60px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--rule) transparent;
+  }
+
+  .tabs::-webkit-scrollbar { height: 4px; }
+  .tabs::-webkit-scrollbar-thumb { background: var(--rule); }
+
+  .tab {
+    background: transparent;
+    border: none;
+    padding: 18px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+    font-weight: 500;
+  }
+
+  .tab:hover { color: var(--oxblood); }
+
+  .tab.active {
+    color: var(--oxblood);
+    border-bottom-color: var(--oxblood);
+  }
+
+  .tab.tab-sim {
+    color: var(--ink);
+    background: var(--ink);
+    color: var(--cream);
+    margin-left: auto;
+    padding: 18px 24px;
+  }
+
+  .tab.tab-sim::before { content: "⚡ "; color: var(--gold); }
+  .tab.tab-sim.active { color: var(--gold); background: var(--ink); border-bottom-color: var(--gold); }
+
+  /* === TAB PANELS === */
+  .tab-panel { display: none; }
+  .tab-panel.active {
+    display: block;
+    animation: fadeUp 0.5s ease-out;
   }
 
   /* === TOC / INDEX === */
@@ -141,7 +205,7 @@
     background: var(--cream-deep);
     border: 1px solid var(--rule);
     padding: 40px 44px;
-    margin-bottom: 120px;
+    margin-bottom: 80px;
     position: relative;
     z-index: 1;
   }
@@ -209,12 +273,11 @@
 
   /* === SECTIONS === */
   section {
-    margin-bottom: 140px;
+    margin-bottom: 120px;
     position: relative;
-    scroll-margin-top: 40px;
+    scroll-margin-top: 80px;
   }
 
-  /* Chapter divider — heavier for top-level methodology start */
   .chapter-divider {
     border-top: 2px solid var(--ink);
     margin: 0 0 80px 0;
@@ -223,6 +286,12 @@
     grid-template-columns: 1fr auto;
     align-items: end;
     gap: 40px;
+  }
+
+  .chapter-divider:first-child {
+    border-top: none;
+    padding-top: 0;
+    margin-top: 0;
   }
 
   .chapter-divider .chapter-label {
@@ -362,7 +431,7 @@
     color: var(--oxblood);
   }
 
-  /* === BUYER / FRAMEWORK CARDS === */
+  /* === CARDS === */
   .buyers-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -417,15 +486,9 @@
     border-bottom: 1px solid var(--rule);
   }
 
-  .buyer-desc {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-  }
-
+  .buyer-desc { font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
   .buyer-desc strong { color: var(--ink); }
 
-  /* === LETTER CARD — for acronym methodologies (MEDDIC, SPIN, BANT) === */
   .letter-card .letter-glyph {
     font-family: 'Fraunces', serif;
     font-weight: 500;
@@ -508,14 +571,9 @@
     color: var(--ink);
   }
 
-  .duo-item p {
-    font-size: 15px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin: 0;
-  }
+  .duo-item p { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
 
-  /* === FLAGS / NUMBERED LISTS === */
+  /* === LISTS === */
   .flags-list {
     list-style: none;
     margin: 32px 0;
@@ -543,19 +601,10 @@
     font-weight: 500;
   }
 
-  .flag-text {
-    font-size: 17px;
-    color: var(--ink);
-    line-height: 1.5;
-  }
+  .flag-text { font-size: 17px; color: var(--ink); line-height: 1.5; }
 
-  /* === SUBMARINE / SEQUENCE STEPS === */
-  .sequence {
-    margin: 50px 0;
-    position: relative;
-    z-index: 1;
-    max-width: 820px;
-  }
+  /* === SEQUENCE === */
+  .sequence { margin: 50px 0; position: relative; z-index: 1; max-width: 820px; }
 
   .sequence-step {
     display: grid;
@@ -586,12 +635,7 @@
     color: var(--ink);
   }
 
-  .sequence-body p {
-    font-size: 15px;
-    color: var(--ink-soft);
-    margin: 0;
-    line-height: 1.55;
-  }
+  .sequence-body p { font-size: 15px; color: var(--ink-soft); margin: 0; line-height: 1.55; }
 
   /* === TABLE === */
   .modes-table {
@@ -639,7 +683,7 @@
     margin-top: 4px;
   }
 
-  /* === SHEET / TEMPLATE MOCKUP === */
+  /* === SHEET === */
   .blue-sheet {
     background: linear-gradient(180deg, #fdfbf6 0%, #f6f1e6 100%);
     border: 1px solid var(--rule);
@@ -704,7 +748,7 @@
 
   .bs-field p em { color: var(--ink); }
 
-  /* === DIALOGUE BLOCK (for SPIN conversation example) === */
+  /* === DIALOGUE === */
   .dialogue {
     background: var(--cream);
     border: 1px solid var(--ink);
@@ -747,7 +791,7 @@
   .dialogue-text strong { font-weight: 500; }
   .dialogue-text em { font-style: italic; color: var(--oxblood-dark); }
 
-  /* === COMPARE CARDS === */
+  /* === COMPARE === */
   .compare-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -772,14 +816,9 @@
     color: var(--oxblood);
   }
 
-  .compare-card p {
-    font-size: 14px;
-    line-height: 1.6;
-    color: var(--ink-soft);
-    margin: 0;
-  }
+  .compare-card p { font-size: 14px; line-height: 1.6; color: var(--ink-soft); margin: 0; }
 
-  /* === WHEN-TO-USE box === */
+  /* === WHEN BOX === */
   .when-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -790,10 +829,7 @@
     z-index: 1;
   }
 
-  .when-box > div {
-    padding: 28px 32px;
-  }
-
+  .when-box > div { padding: 28px 32px; }
   .when-yes { background: var(--cream); border-right: 1px solid var(--ink); }
   .when-no { background: var(--cream-deep); }
 
@@ -807,19 +843,10 @@
     font-weight: 500;
   }
 
-  .when-box h5::before {
-    content: "✓";
-    margin-right: 8px;
-    color: var(--oxblood);
-  }
-
+  .when-box h5::before { content: "✓"; margin-right: 8px; color: var(--oxblood); }
   .when-no h5::before { content: "✕"; color: var(--ink-soft); }
 
-  .when-box ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
+  .when-box ul { list-style: none; padding: 0; margin: 0; }
 
   .when-box li {
     font-size: 14px;
@@ -830,12 +857,7 @@
     position: relative;
   }
 
-  .when-box li::before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--gold);
-  }
+  .when-box li::before { content: "—"; position: absolute; left: 0; color: var(--gold); }
 
   /* === VERDICT === */
   .verdict {
@@ -872,16 +894,349 @@
     max-width: 800px;
   }
 
-  .verdict h3 em {
-    font-style: italic;
-    color: var(--gold);
+  .verdict h3 em { font-style: italic; color: var(--gold); }
+  .verdict p { color: rgba(244, 239, 230, 0.8); max-width: 760px; font-size: 16px; }
+
+  /* === SIMULATOR === */
+  .sim-intro {
+    margin-bottom: 60px;
+    max-width: 820px;
   }
 
-  .verdict p {
-    color: rgba(244, 239, 230, 0.8);
-    max-width: 760px;
-    font-size: 16px;
+  .sim-dimensions {
+    display: grid;
+    gap: 0;
+    margin: 50px 0;
+    border: 1px solid var(--ink);
+    background: var(--cream);
+    position: relative;
+    z-index: 1;
   }
+
+  .sim-dim {
+    padding: 36px 40px;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.2s;
+  }
+
+  .sim-dim:last-child { border-bottom: none; }
+
+  .sim-dim-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 12px;
+  }
+
+  .sim-dim-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    font-weight: 500;
+  }
+
+  .sim-dim h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 28px;
+    color: var(--ink);
+    line-height: 1.15;
+  }
+
+  .sim-dim h3 em { font-style: italic; color: var(--oxblood); }
+
+  .sim-dim > p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    margin-bottom: 28px;
+    max-width: 720px;
+    line-height: 1.55;
+  }
+
+  .sim-slider-group {
+    display: grid;
+    gap: 24px;
+    margin: 24px 0 0;
+  }
+
+  .sim-slider-row { display: block; }
+
+  .sim-slider-row .sim-slider-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 8px;
+  }
+
+  .sim-slider-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .sim-slider-value {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--oxblood);
+    line-height: 1;
+    min-width: 30px;
+    text-align: right;
+  }
+
+  .sim-slider-hint {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  .sim-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, var(--rule), var(--rule));
+    outline: none;
+    border-radius: 0;
+    cursor: pointer;
+    margin: 4px 0;
+  }
+
+  .sim-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--oxblood);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--ink);
+    transition: transform 0.15s;
+  }
+
+  .sim-slider:active::-webkit-slider-thumb { transform: scale(1.15); }
+
+  .sim-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    background: var(--oxblood);
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid var(--cream);
+    box-shadow: 0 0 0 1px var(--ink);
+  }
+
+  .sim-dim-score {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--rule);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .sim-score-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .sim-score-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--cream-deep);
+    position: relative;
+    border: 1px solid var(--rule);
+  }
+
+  .sim-score-bar-fill {
+    height: 100%;
+    background: var(--oxblood);
+    width: 50%;
+    transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), background 0.35s;
+  }
+
+  .sim-score-bar-fill.good { background: var(--green); }
+  .sim-score-bar-fill.warn { background: var(--gold); }
+  .sim-score-bar-fill.bad { background: var(--oxblood); }
+
+  .sim-score-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--oxblood);
+    font-weight: 500;
+    min-width: 50px;
+    text-align: right;
+  }
+
+  /* === SIMULATOR RESULT === */
+  .sim-result {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin: 80px 0 40px;
+    padding: 50px;
+    background: var(--cream-deep);
+    border: 1px solid var(--ink);
+    position: relative;
+    z-index: 1;
+    align-items: center;
+  }
+
+  .sim-result::before {
+    content: "RESULT";
+    position: absolute;
+    top: -10px;
+    left: 30px;
+    background: var(--cream);
+    color: var(--oxblood);
+    padding: 4px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    font-weight: 500;
+  }
+
+  .radar-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  .radar { width: 100%; height: 100%; }
+  .radar-grid { fill: none; stroke: var(--rule); stroke-width: 0.8; }
+  .radar-grid.outer { stroke: var(--ink); stroke-width: 1; opacity: 0.4; }
+  .radar-axis { stroke: var(--rule); stroke-width: 0.8; opacity: 0.4; }
+  .radar-data {
+    fill: var(--oxblood);
+    fill-opacity: 0.22;
+    stroke: var(--oxblood);
+    stroke-width: 2;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .radar-dot {
+    fill: var(--oxblood);
+    stroke: var(--cream);
+    stroke-width: 2;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .radar-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    fill: var(--ink);
+    font-weight: 500;
+  }
+  .radar-label-sub {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 8px;
+    fill: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .sim-verdict h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--oxblood);
+    margin-bottom: 14px;
+    font-weight: 500;
+  }
+
+  .sim-verdict h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(28px, 3vw, 38px);
+    line-height: 1.1;
+    margin-bottom: 16px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  .sim-verdict h3 em { font-style: italic; color: var(--oxblood); }
+
+  .sim-verdict p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .sim-verdict p em { color: var(--oxblood-dark); }
+
+  .sim-total {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .sim-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .sim-total-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .sim-total-score {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--oxblood);
+  }
+
+  .sim-total-score em {
+    font-size: 18px;
+    color: var(--ink-soft);
+    font-weight: 400;
+    margin-left: 4px;
+  }
+
+  .sim-reset {
+    background: transparent;
+    border: 1px solid var(--ink);
+    padding: 10px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink);
+    cursor: pointer;
+    margin-top: 32px;
+    transition: background 0.2s, color 0.2s;
+    font-weight: 500;
+  }
+
+  .sim-reset:hover { background: var(--ink); color: var(--cream); }
 
   /* === FOOTER === */
   footer {
@@ -899,20 +1254,20 @@
 
   footer span { color: var(--oxblood); }
 
-  /* === ENTRANCE ANIMATION === */
+  /* === ANIMATION === */
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .masthead, .lead, .lead-meta, .toc {
+  .masthead, .lead, .lead-meta, .tabs {
     animation: fadeUp 0.8s ease-out backwards;
   }
 
-  .masthead { animation-delay: 0.1s; }
-  .lead { animation-delay: 0.3s; }
-  .lead-meta { animation-delay: 0.4s; }
-  .toc { animation-delay: 0.5s; }
+  .masthead { animation-delay: 0.05s; }
+  .lead { animation-delay: 0.15s; }
+  .lead-meta { animation-delay: 0.2s; }
+  .tabs { animation-delay: 0.25s; }
 
   /* === RESPONSIVE === */
   @media (max-width: 768px) {
@@ -922,6 +1277,9 @@
       text-align: left; border-left: none; padding-left: 0;
       border-top: 1px solid var(--rule); padding-top: 16px;
     }
+    .tabs { margin: 0 -24px 50px; padding: 0 24px; }
+    .tab { padding: 16px 12px; font-size: 10px; }
+    .tab.tab-sim { padding: 16px 16px; margin-left: 12px; }
     .toc-list { grid-template-columns: 1fr; }
     .buyers-grid, .buyers-grid.three { grid-template-columns: 1fr; }
     .duo-box, .duo-box.trio { grid-template-columns: 1fr; }
@@ -936,6 +1294,8 @@
     .sequence-step { grid-template-columns: 50px 1fr; gap: 16px; }
     .sequence-num { font-size: 32px; }
     .dialogue-line { grid-template-columns: 1fr; gap: 4px; }
+    .sim-result { grid-template-columns: 1fr; padding: 30px; gap: 30px; }
+    .sim-dim { padding: 28px 24px; }
   }
 </style>
 </head>
@@ -943,9 +1303,7 @@
 
 <div class="container">
 
-  <!-- ════════════════════════════════════════════════ -->
-  <!-- MASTHEAD                                          -->
-  <!-- ════════════════════════════════════════════════ -->
+  <!-- MASTHEAD -->
   <header class="masthead">
     <div>
       <div class="masthead-label">Compendiu — Sales Methodologies / Vol. 01</div>
@@ -955,7 +1313,7 @@
       <span><strong>Domeniu</strong></span>
       <span>B2B Software, SaaS, Services</span>
       <span style="margin-top: 10px;"><strong>Format</strong></span>
-      <span>6 frameworks ×<br>structură identică</span>
+      <span>6 frameworks + simulator<br>de sănătate</span>
       <span style="margin-top: 10px;"><strong>Pentru</strong></span>
       <span>AE, RevOps,<br>founders care vând</span>
     </div>
@@ -963,1180 +1321,1513 @@
 
   <!-- LEAD -->
   <p class="lead">
-    Șase metodologii care domină vânzarea de <em>software și servicii</em>.
-    De la deal-urile enterprise multi-stakeholder la calificarea rapidă de
-    pipeline. Fiecare are un context în care strălucește — și unul în care
-    devine <em>overhead</em>.
+    Șase metodologii care domină vânzarea de <em>software și servicii</em> —
+    plus un simulator interactiv de <em>cinci dimensiuni</em> care îți
+    spune dacă deal-ul (sau întreg business-ul) e sănătos sau scurge bani
+    pe la cusături.
   </p>
   <div class="lead-meta">
-    Timp de citire ≈ 25 minute &nbsp; · &nbsp; Pentru AE, RevOps, founders care vând software / services
+    Timp de citire ≈ 25 minute &nbsp; · &nbsp; Navighează prin tab-uri &nbsp; · &nbsp; Simulatorul e în ultimul tab
   </div>
 
-  <!-- TABLE OF CONTENTS -->
-  <nav class="toc">
-    <div class="toc-label">▮ Index — cele șase frameworks</div>
-    <ul class="toc-list">
-      <li>
-        <span class="toc-num">/ I</span>
-        <a href="#miller-heiman">Miller Heiman<em>Strategic Selling — enterprise complex</em></a>
-        <span class="toc-year">1978</span>
-      </li>
-      <li>
-        <span class="toc-num">/ II</span>
-        <a href="#meddic">MEDDIC / MEDDPICC<em>Calificare & forecast SaaS</em></a>
-        <span class="toc-year">1996</span>
-      </li>
-      <li>
-        <span class="toc-num">/ III</span>
-        <a href="#spin">SPIN Selling<em>Discovery structurat</em></a>
-        <span class="toc-year">1988</span>
-      </li>
-      <li>
-        <span class="toc-num">/ IV</span>
-        <a href="#challenger">Challenger Sale<em>Insight-led, disruptive</em></a>
-        <span class="toc-year">2011</span>
-      </li>
-      <li>
-        <span class="toc-num">/ V</span>
-        <a href="#sandler">Sandler<em>Buyer-seller dance, inversat</em></a>
-        <span class="toc-year">1967</span>
-      </li>
-      <li>
-        <span class="toc-num">/ VI</span>
-        <a href="#command">Command of the Message<em>Value messaging (Force Mgmt)</em></a>
-        <span class="toc-year">2003</span>
-      </li>
-    </ul>
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB NAVIGATION                                    -->
+  <!-- ════════════════════════════════════════════════ -->
+  <nav class="tabs" role="tablist">
+    <button class="tab" data-tab="overview" role="tab">Overview</button>
+    <button class="tab" data-tab="miller-heiman" role="tab">I · Miller Heiman</button>
+    <button class="tab" data-tab="meddic" role="tab">II · MEDDIC</button>
+    <button class="tab" data-tab="spin" role="tab">III · SPIN</button>
+    <button class="tab" data-tab="challenger" role="tab">IV · Challenger</button>
+    <button class="tab" data-tab="sandler" role="tab">V · Sandler</button>
+    <button class="tab" data-tab="command" role="tab">VI · Command</button>
+    <button class="tab" data-tab="sinteza" role="tab">Sinteză</button>
+    <button class="tab tab-sim" data-tab="simulator" role="tab">Simulator</button>
   </nav>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER I — MILLER HEIMAN                                        -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="miller-heiman">
-    <div>
-      <div class="chapter-label">Capitolul I — Strategic Selling</div>
-      <h1 class="chapter-title">Miller<br>Heiman<em>.</em></h1>
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: OVERVIEW                                     -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="overview" role="tabpanel">
+    <nav class="toc">
+      <div class="toc-label">▮ Index — cele șase frameworks</div>
+      <ul class="toc-list">
+        <li>
+          <span class="toc-num">/ I</span>
+          <a href="#miller-heiman">Miller Heiman<em>Strategic Selling — enterprise complex</em></a>
+          <span class="toc-year">1978</span>
+        </li>
+        <li>
+          <span class="toc-num">/ II</span>
+          <a href="#meddic">MEDDIC / MEDDPICC<em>Calificare & forecast SaaS</em></a>
+          <span class="toc-year">1996</span>
+        </li>
+        <li>
+          <span class="toc-num">/ III</span>
+          <a href="#spin">SPIN Selling<em>Discovery structurat</em></a>
+          <span class="toc-year">1988</span>
+        </li>
+        <li>
+          <span class="toc-num">/ IV</span>
+          <a href="#challenger">Challenger Sale<em>Insight-led, disruptive</em></a>
+          <span class="toc-year">2011</span>
+        </li>
+        <li>
+          <span class="toc-num">/ V</span>
+          <a href="#sandler">Sandler<em>Buyer-seller dance, inversat</em></a>
+          <span class="toc-year">1967</span>
+        </li>
+        <li>
+          <span class="toc-num">/ VI</span>
+          <a href="#command">Command of the Message<em>Value messaging (Force Mgmt)</em></a>
+          <span class="toc-year">2003</span>
+        </li>
+      </ul>
+    </nav>
+
+    <section style="margin-bottom: 80px;">
+      <div class="section-header">
+        <div class="section-tag">§ — De ce un compendiu</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Niciuna nu vinde singură. <em>Toate</em>, da.</h2>
+      <p class="wide drop-cap">
+        Fiecare framework rezolvă un strat diferit din problemă. Miller Heiman
+        îți spune <em>cui</em> vinzi. MEDDIC, <em>cât de real</em> e dealul.
+        SPIN, <em>cum</em> deschizi conversația. Challenger, <em>ce</em>
+        spui ca să provoci. Sandler, <em>cum</em> menții controlul. Command
+        of the Message, <em>cum</em> articulezi valoarea sub presiune de preț.
+      </p>
+      <p class="wide">
+        Citește în ordine sau sari direct la framework-ul care te interesează.
+        Și încheie cu <a href="#simulator" style="color:var(--oxblood);text-decoration:underline;">Simulator</a> —
+        cinci dimensiuni care îți spun dacă fundația business-ului tău e
+        sănătoasă sau dacă vinzi în <em>iluzia de growth</em>.
+      </p>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: MILLER HEIMAN                                -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="miller-heiman" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul I — Strategic Selling</div>
+        <h1 class="chapter-title">Miller<br>Heiman<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>1978 — California</span>
+        <span style="margin-top: 10px;"><strong>Autori</strong></span>
+        <span>R. Miller, S. Heiman</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>Enterprise<br>multi-stakeholder</span>
+      </div>
     </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>1978 — California</span>
-      <span style="margin-top: 10px;"><strong>Autori</strong></span>
-      <span>R. Miller, S. Heiman</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>Enterprise<br>multi-stakeholder</span>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Într-un deal mare, nu vinzi unui om. Vinzi unui <em>comitet</em>.</h2>
+      <p class="drop-cap wide">
+        La nivel enterprise — deal-uri de $100K și mai sus — fiecare decizie
+        implică 5–10 oameni, fiecare cu interese diferite, unii pe care
+        vânzătorul nu îi vede niciodată. Aici se pierd majoritatea
+        tranzacțiilor.
+      </p>
+      <p>Vânzătorii pierd deal-uri pentru că:</p>
+      <ul class="flags-list">
+        <li><span class="flag-num">/ 01</span><span class="flag-text">Vorbesc doar cu user-ul, dar economic buyer-ul taie bugetul în ultimul moment.</span></li>
+        <li><span class="flag-num">/ 02</span><span class="flag-text">Cred că au champion intern — dar champion-ul lor nu are influență reală.</span></li>
+        <li><span class="flag-num">/ 03</span><span class="flag-text">Nu văd <em>stealth opposition</em> — cineva care lucrează împotriva lor pe la spate.</span></li>
+      </ul>
+      <div class="pullquote">
+        <p>Miller Heiman zice: mapează toți actorii, înțelege rolul fiecăruia, gestionează-i diferit.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Cele patru roluri</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Fiecare persoană joacă <em>unul</em> (sau mai multe) din aceste patru roluri.</h2>
+
+      <div class="buyers-grid">
+        <div class="buyer-card">
+          <div class="buyer-num">/ ROL 01</div>
+          <div class="buyer-name">Economic <em>Buyer</em></div>
+          <div class="buyer-tagline">"Spune da sau nu la final."</div>
+          <div class="buyer-desc">Are banii, semnează. <strong>Unul singur per deal.</strong> De obicei mai sus decât crezi — CFO, CEO pe deal-uri mari. Dacă nu îl identifici, deal-ul moare lent.</div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ ROL 02</div>
+          <div class="buyer-name">Technical <em>Buyer</em></div>
+          <div class="buyer-tagline">"Poate spune NU, nu poate spune DA."</div>
+          <div class="buyer-desc">Evaluează soluția pe criterii — security, integrări, compliance. <strong>Job-ul lui e să găsească motive să te respingă.</strong> Procurement, IT security, legal stau aici.</div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ ROL 03</div>
+          <div class="buyer-name">User <em>Buyer</em></div>
+          <div class="buyer-tagline">"O să o folosesc zilnic. Îmi pasă."</div>
+          <div class="buyer-desc">Oamenii care vor folosi produsul efectiv. Le pasă de impactul pe job-ul lor. <strong>Pot accelera sau sabota</strong> implementarea după semnare.</div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ ROL 04</div>
+          <div class="buyer-name">Coach <em>/ Champion</em></div>
+          <div class="buyer-tagline">"Vrea ca tu să câștigi."</div>
+          <div class="buyer-desc">Insider care vrea să câștigi tu. Îți dă informații, te ajută să navighezi politica internă. <strong>Fără coach, nu închizi deal-ul.</strong> Trebuie să fie credibil intern și să aibă acces real.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Win-Results</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Pentru fiecare actor, <em>două</em> întrebări.</h2>
+
+      <div class="duo-box">
+        <div class="duo-item">
+          <h4>/ Personal</h4>
+          <h3>Win</h3>
+          <p>Ce câștigă PERSONAL acest om? Promovare, vizibilitate, life-ul lui mai ușor, mai puțin stres acasă, un win pe care îl poate povesti la următorul one-on-one.</p>
+        </div>
+        <div class="duo-item">
+          <h4>/ Organizațional</h4>
+          <h3>Result</h3>
+          <p>Ce câștigă ORGANIZAȚIA? Cost reduction, revenue uplift, compliance, time-to-market, reducere de risc operațional. Asta intră în business case.</p>
+        </div>
+      </div>
+
+      <p class="wide"><em>Vinzi pe ambele.</em> Result-ul intră în slide-urile oficiale; win-ul intră în conversația 1-on-1 cu fiecare actor. Vânzătorii slabi vorbesc doar de result — și ratează exact pârghia care mișcă decizia.</p>
+    </section>
+
+    <section>
+      <div class="chapter-num">IV</div>
+      <div class="section-header">
+        <div class="section-tag">§ 04 — Red Flags & Response Modes</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Semnele că deal-ul tău este <em>în pericol</em>.</h2>
+
+      <ul class="flags-list">
+        <li><span class="flag-num">/ 01</span><span class="flag-text">Nu ai identificat economic buyer-ul real.</span></li>
+        <li><span class="flag-num">/ 02</span><span class="flag-text">Coach-ul tău nu este credibil intern.</span></li>
+        <li><span class="flag-num">/ 03</span><span class="flag-text">Informația despre cont vine doar dintr-o singură sursă.</span></li>
+        <li><span class="flag-num">/ 04</span><span class="flag-text">Reorganizare sau schimbare executivă recentă în cont.</span></li>
+        <li><span class="flag-num">/ 05</span><span class="flag-text">Nu ai întâlnit niciodată un buyer key în persoană (sau pe video).</span></li>
+      </ul>
+
+      <h3 class="subhead">Și <em>patru</em> mood-uri în care poți găsi un buyer.</h3>
+
+      <table class="modes-table">
+        <thead>
+          <tr>
+            <th style="width: 25%;">Mode</th>
+            <th style="width: 35%;">Ce simte buyerul</th>
+            <th>Cât de greu de vândut</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mode-name">Growth<em>"Vreau mai mult."</em></div></td>
+            <td>Vrea +X% performance, expansiune, capabilități noi.</td>
+            <td>Receptiv. Vinzi upside-ul.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Trouble<em>"Ceva e stricat."</em></div></td>
+            <td>Are durere acută, vrea fix urgent. Pierdere de bani sau timp în curs.</td>
+            <td><strong>Cel mai bun mod pentru tine.</strong> Vinzi remediul.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Even Keel<em>"Totul e OK."</em></div></td>
+            <td>Nu vede problemă, nu vrea schimbare. Status quo confortabil.</td>
+            <td>Foarte greu. Trebuie să creezi insight nou.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Overconfident<em>"Suntem cei mai buni."</em></div></td>
+            <td>Crede că e mai bine decât e în realitate. Negare activă.</td>
+            <td>Imposibil — până nu se prăbușește ceva.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="chapter-num">V</div>
+      <div class="section-header">
+        <div class="section-tag">§ 05 — Blue Sheet (în practică)</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Pe fiecare deal mare: un <em>battle plan</em> de o pagină.</h2>
+
+      <p class="wide">Blue Sheet-ul — literal o foaie albastră, în origine — se actualizează după fiecare interacțiune cu contul. Arată cam așa:</p>
+
+      <div class="blue-sheet" data-label="BLUE SHEET">
+        <div class="blue-sheet-title">Account: Acme Industries · Deal: Data Platform Modernization · $850K ACV</div>
+        <div class="blue-sheet-grid">
+          <div class="bs-field">
+            <h5>Economic Buyer</h5>
+            <p><em>Sarah K., CFO</em> — întâlnită 1×, validat budget authority până la $1M. Win: trim. Q4 cost narrative.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Technical Buyer</h5>
+            <p><em>Marcus T., VP Infrastructure</em> — sceptic pe vendor lock-in. Win: control technical. Result: 30% reducere OpEx.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Coach</h5>
+            <p><em>Diana R., Director Data</em> — credibilitate medie-mare, raport direct la CTO. Promovată recent → motivat să livreze.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Response Mode dominant</h5>
+            <p><em>Trouble</em> — incident de production în Q2. Board pressure pentru remediation plan.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Red Flags</h5>
+            <p><em>1 activ:</em> nu am întâlnit încă CTO-ul (potențial decision-maker). Action: cere intro prin Diana.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Next Action</h5>
+            <p><em>Joi, 14:00</em> — workshop cu Marcus + 2 ingineri. Obiectiv: validate technical fit + bridge la CTO.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>Deal ACV &gt; $100K</li>
+            <li>5+ stakeholders identificați</li>
+            <li>Sales cycle &gt; 3 luni</li>
+            <li>Politică internă vizibilă</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>SMB, self-serve, PLG</li>
+            <li>Deal-uri &lt; $20K ACV</li>
+            <li>1–2 stakeholders</li>
+            <li>Velocity &gt; rigor</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: MEDDIC                                       -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="meddic" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul II — Qualification & Forecast</div>
+        <h1 class="chapter-title">MEDDIC<em>,</em><br>MEDDPICC<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>1996 — PTC</span>
+        <span style="margin-top: 10px;"><strong>Autori</strong></span>
+        <span>D. Dunkel, J. Napoli</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>SaaS forecast accuracy,<br>deal qualification</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Pipeline-ul tău <em>minte</em>. MEDDIC îl forțează să spună adevărul.</h2>
+      <p class="drop-cap wide">
+        Inventat la PTC în anii '90, MEDDIC a devenit standardul de calificare
+        în SaaS. Salesforce, MongoDB, Snowflake, Datadog — toate folosesc
+        vreo variantă. Motivul e brutal de simplu: <em>forecast accuracy</em>.
+        Dacă nu poți răspunde la toate literele, nu ai un deal — ai o ipoteză.
+      </p>
+      <p>Cele opt litere (MEDDPICC e versiunea extinsă):</p>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Cele opt litere</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Fiecare literă = o întrebare la care <em>trebuie</em> să răspunzi.</h2>
+
+      <div class="buyers-grid">
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ M</div>
+          <div class="letter-glyph">M<em>etrics</em></div>
+          <div class="buyer-tagline">"Ce număr se mișcă?"</div>
+          <div class="buyer-desc">Impactul cuantificat — <strong>$, %, ore, MTTR.</strong> Nu "îmbunătățim eficiența", ci "reducem timpul de procesare de la 4h la 12 min, economie $1.2M/an".</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ E</div>
+          <div class="letter-glyph">E<em>conomic Buyer</em></div>
+          <div class="buyer-tagline">"Cine semnează cecul?"</div>
+          <div class="buyer-desc">Persoana cu autoritate discreționară pentru buget. <strong>L-ai întâlnit?</strong> Dacă nu — ai un deal cu un proxy, nu cu decident.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ D</div>
+          <div class="letter-glyph">D<em>ecision Criteria</em></div>
+          <div class="buyer-tagline">"După ce criterii aleg?"</div>
+          <div class="buyer-desc">Lista oficială folosită pentru a compara vendori. <strong>Tehnice, business, relaționale.</strong> Dacă nu o cunoști, nu poți tailor mesajul — și nu poți influența scorul.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ D</div>
+          <div class="letter-glyph">D<em>ecision Process</em></div>
+          <div class="buyer-tagline">"Pașii exacți până la PO."</div>
+          <div class="buyer-desc">Cine semnează când, în ce ordine, ce aprobare formală. <strong>Procurement, legal, security review, board.</strong> Fără harta procesului, închidere = noroc.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ I</div>
+          <div class="letter-glyph">I<em>dentify Pain</em></div>
+          <div class="buyer-tagline">"De ce acum?"</div>
+          <div class="buyer-desc">Durere reală, măsurabilă, atribuită cu nume. <strong>"Nice to have" nu se închide niciodată.</strong> Pain-ul trebuie să fie acut și public-recunoscut intern.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ C</div>
+          <div class="letter-glyph">C<em>hampion</em></div>
+          <div class="buyer-tagline">"Cine vinde când nu ești în cameră?"</div>
+          <div class="buyer-desc">Definiție strictă: are <strong>putere</strong>, <strong>beneficiu personal</strong> dacă închizi, și <strong>te vinde activ</strong>. Un fan fără putere nu e champion. Un șef neutru nici atât.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ P</div>
+          <div class="letter-glyph">P<em>aper Process</em></div>
+          <div class="buyer-tagline">"Cât durează drumul contractului?"</div>
+          <div class="buyer-desc">Adăugat în MEDDPICC. Procurement, MSA, security review, DPA, infosec questionnaire. <strong>3–12 săptămâni</strong> de obicei. Începe devreme sau pierzi quarter-ul.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ C</div>
+          <div class="letter-glyph">C<em>ompetition</em></div>
+          <div class="buyer-tagline">"Cu cine te bați real?"</div>
+          <div class="buyer-desc">Inclusiv "do nothing" și "build in-house" — concurenți tăcuți care câștigă cel mai des. <strong>Cunoaște-le slăbiciunile, prepara-ți coach-ul cu contraargumente.</strong></div>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        <p>Regula PTC: dacă nu poți răspunde clar la fiecare literă, deal-ul nu e în forecast. Punct.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Champion ≠ Fan</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Cea mai prost înțeleasă literă din framework.</h2>
+      <p class="wide">"Am champion" e cea mai comună minciună pe care AE-ul și-o spune singur. MEDDIC pretinde <em>trei</em> teste simultane:</p>
+
+      <div class="duo-box trio">
+        <div class="duo-item">
+          <h4>/ Test 01</h4>
+          <h3>Power</h3>
+          <p>Are influență recunoscută intern. Oamenii îi ascultă opinia. Nu e neapărat seniorul — uneori e tech lead-ul ascultat de CTO.</p>
+        </div>
+        <div class="duo-item">
+          <h4>/ Test 02</h4>
+          <h3>Benefit</h3>
+          <p>Câștigă ceva personal dacă închizi: visibility, promovare, life mai ușor, problem pe care chiar el îl simte rezolvat.</p>
+        </div>
+        <div class="duo-item">
+          <h4>/ Test 03</h4>
+          <h3>Action</h3>
+          <p>Te vinde activ când nu ești în cameră. Ai dovezi: îți forwardează emailuri, îți organizează întâlniri, repetă mesajul tău intern.</p>
+        </div>
+      </div>
+
+      <p class="wide">Lipsește unul din trei → ai un <em>coach</em>, nu un champion. Coach-ul dă informație. Champion-ul mută deal-ul.</p>
+    </section>
+
+    <section>
+      <div class="chapter-num">IV</div>
+      <div class="section-header">
+        <div class="section-tag">§ 04 — Scorecard în practică</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Cum arată un deal scor-uit cu <em>MEDDPICC</em>.</h2>
+
+      <div class="blue-sheet" data-label="MEDDPICC SCORECARD">
+        <div class="blue-sheet-title">Acme Industries · Data Platform · $850K ACV · Score: 22/40</div>
+        <div class="blue-sheet-grid">
+          <div class="bs-field">
+            <h5>M — Metrics &nbsp; <em>4/5</em></h5>
+            <p><em>OpEx $1.2M/an</em>, MTTR de la 4h la 30min. Validat cu CFO. Lipsește baseline-ul exact pentru migration cost.</p>
+          </div>
+          <div class="bs-field">
+            <h5>E — Economic Buyer &nbsp; <em>3/5</em></h5>
+            <p><em>Sarah K., CFO</em>. Întâlnită 1×. Nu am confirmat că ea semnează personal — posibil delegat la VP Finance.</p>
+          </div>
+          <div class="bs-field">
+            <h5>D — Decision Criteria &nbsp; <em>3/5</em></h5>
+            <p>Document oficial primit. Top 3: TCO, security posture, time-to-value. Lipsește weighting-ul intern.</p>
+          </div>
+          <div class="bs-field">
+            <h5>D — Decision Process &nbsp; <em>2/5</em></h5>
+            <p>Cunoaștem: PoC → tech review → security → procurement. <em>Nu</em> cunoaștem timeline-ul exact și gating-ul board.</p>
+          </div>
+          <div class="bs-field">
+            <h5>I — Identify Pain &nbsp; <em>4/5</em></h5>
+            <p>Incident de prod în Q2, board pressure. Pain acut, atribuit, public intern. Foarte tare.</p>
+          </div>
+          <div class="bs-field">
+            <h5>C — Champion &nbsp; <em>2/5</em></h5>
+            <p><em>Diana R.</em> — power MEDIU, benefit DA, action MEDIU. Lipsește dovada că ne vinde când nu suntem în cameră.</p>
+          </div>
+          <div class="bs-field">
+            <h5>P — Paper Process &nbsp; <em>2/5</em></h5>
+            <p>MSA gata. Security questionnaire <em>nu</em> a început. Risc 6–8 săptămâni.</p>
+          </div>
+          <div class="bs-field">
+            <h5>C — Competition &nbsp; <em>2/5</em></h5>
+            <p>Snowflake activ. "Build in-house" considerat de Marcus. Plan slab de displacement pentru build-it option.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>SaaS / software cu cycle 1–9 luni</li>
+            <li>Deal-uri $25K – $5M ACV</li>
+            <li>Pipeline review săptămânal</li>
+            <li>Vrei forecast accuracy reală</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>SMB transactional, &lt; $10K</li>
+            <li>Self-serve / PLG</li>
+            <li>Cycle &lt; 2 săptămâni</li>
+            <li>Discovery-driven research mode</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: SPIN                                         -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="spin" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul III — Discovery framework</div>
+        <h1 class="chapter-title">SPIN<br>Selling<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>1988 — Huthwaite</span>
+        <span style="margin-top: 10px;"><strong>Autor</strong></span>
+        <span>Neil Rackham</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>Discovery structurat<br>în deal-uri lungi</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>"Closing techniques" funcționează pe small deals. Pe enterprise <em>distrug</em> deal-ul.</h2>
+      <p class="drop-cap wide">
+        Neil Rackham a petrecut 12 ani analizând <em>35.000+ apeluri de vânzare</em>
+        în 23 de țări. Rezultatul a inversat ce credeau toți: tehnicile de
+        închidere agresivă (assumptive close, alternative close, urgency),
+        eficiente la deal-uri mici, <em>scad</em> rata de win la deal-uri mari.
+        Concluzia: în software/services complex, vinzi cu întrebări, nu cu pitch.
+      </p>
+      <div class="pullquote">
+        <p>În deal-uri mari, vânzătorul care vorbește cel mai mult e cel care pierde. Vânzătorul care întreabă cel mai bine câștigă.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Cele patru tipuri de întrebări</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>În ordine. Sari peste una, ratezi <em>levierul</em>.</h2>
+
+      <div class="buyers-grid">
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ S</div>
+          <div class="letter-glyph">S<em>ituation</em></div>
+          <div class="buyer-tagline">"Cum arată setup-ul tău acum?"</div>
+          <div class="buyer-desc">Fapte despre starea actuală. <strong>Folosește puține</strong> — buyerul senior le percepe ca pierdere de timp. Mare parte se documentează înainte de call.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ P</div>
+          <div class="letter-glyph">P<em>roblem</em></div>
+          <div class="buyer-tagline">"Ce nu merge bine?"</div>
+          <div class="buyer-desc">Dificultăți, nemulțumiri, frustrări. <strong>Aici intră majoritatea AE-ilor — și se opresc.</strong> Mare greșeală. Problem-ul singur nu vinde.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ I</div>
+          <div class="letter-glyph">I<em>mplication</em></div>
+          <div class="buyer-tagline">"Și ce înseamnă asta pentru..."</div>
+          <div class="buyer-desc"><strong>Pârghia întregului framework.</strong> Forțează buyerul să articuleze consecințele problemei: cost, risk, ratări strategice, impact pe oameni. Aici crește urgența.</div>
+        </div>
+        <div class="buyer-card letter-card">
+          <div class="buyer-num">/ N</div>
+          <div class="letter-glyph">N<em>eed-Payoff</em></div>
+          <div class="buyer-tagline">"Cât ar valora pentru tine dacă..."</div>
+          <div class="buyer-desc">Forțează buyerul <strong>să articuleze el</strong> valoarea soluției. Nu tu îi spui ROI-ul. El îți spune. Mult mai puternic — și apoi îl repetă intern.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Dialog tipic</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Cum sună în practică — scenă scurtă.</h2>
+
+      <div class="dialogue">
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ AE — S</div>
+          <div class="dialogue-text">Cum gestionați acum incident response-ul pe stack-ul vostru?</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ Buyer</div>
+          <div class="dialogue-text">On-call rotation pe Slack, alerts din Datadog, runbooks în Notion.</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ AE — P</div>
+          <div class="dialogue-text">Ce nu merge bine în setup-ul ăsta?</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ Buyer</div>
+          <div class="dialogue-text">Alert fatigue. Trecem prin 200+ alerte pe săptămână, majoritatea false positives.</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ AE — I</div>
+          <div class="dialogue-text"><em>Și ce înseamnă asta pentru echipă?</em></div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ Buyer</div>
+          <div class="dialogue-text">Doi senior engineers s-au plâns la 1-on-1 luna asta. Unul a primit ofertă afară. Și am ratat un incident real în iulie pentru că s-a pierdut în zgomot.</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ AE — I</div>
+          <div class="dialogue-text"><em>Câte ore pierdeți săptămânal pe triaj de false positives?</em></div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ Buyer</div>
+          <div class="dialogue-text">Realist? 25–30 de ore pe săptămână, de la 5 oameni.</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ AE — N</div>
+          <div class="dialogue-text"><em>Dacă am reduce false positives cu 80%, cât ar conta pentru tine?</em></div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-tag">/ Buyer</div>
+          <div class="dialogue-text"><strong>Mi-ar elibera un FTE întreg pe trimestru. Și aș putea retain-ui senior-ii. Asta e easily $200K/an + risk reduction. Cum funcționează produsul vostru?</strong></div>
+        </div>
+      </div>
+
+      <p class="wide">Observă: buyerul a <em>cerut</em> demo-ul. AE-ul nu a pitch-uit niciodată. Aici stă magia: Implication construiește urgența, Need-payoff face buyerul să articuleze el ROI-ul.</p>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>Discovery call structurat</li>
+            <li>Software / services cu pain ascuns</li>
+            <li>Buyerul nu-și conștientizează urgența</li>
+            <li>Vrei buyerul să-și articuleze ROI-ul</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>Buyerul vine cu RFP deja construit</li>
+            <li>Demo request inbound calificat</li>
+            <li>Transactional, pricing-driven</li>
+            <li>Buyerul cere direct preț</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: CHALLENGER                                   -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="challenger" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul IV — Insight-led selling</div>
+        <h1 class="chapter-title">Challenger<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>2011 — CEB / Gartner</span>
+        <span style="margin-top: 10px;"><strong>Autori</strong></span>
+        <span>M. Dixon, B. Adamson</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>Vânzare disruptive,<br>complex enterprise</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>"Relațiile bune" <em>nu mai vând</em>. CEB a măsurat-o.</h2>
+      <p class="drop-cap wide">
+        În 2009, CEB (Corporate Executive Board, acum Gartner) a analizat
+        <em>6.000 de vânzători B2B</em> și a descoperit ceva incomod: la
+        deal-uri complexe, relationship builders — modelul iubit timp de
+        decenii — performau cel mai prost. Câștigătorii erau "Challenger-ii"
+        — vânzătorii care <em>provocau</em> buyerul cu insight pe care el nu-l
+        avea singur.
+      </p>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Cele cinci profile</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Toți vânzătorii cad în <em>unul</em> din aceste cinci.</h2>
+
+      <table class="modes-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">Profil</th>
+            <th style="width: 36%;">Cum vinde</th>
+            <th>% printre top performers (complex)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mode-name">Challenger<em>"Te învăț ceva nou despre business-ul tău."</em></div></td>
+            <td>Teach, tailor, take control. Aduce insight provocator. Confortabil cu tensiune productivă.</td>
+            <td><strong>54%</strong> — câștigătorul clar.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Lone Wolf<em>"Fac cum știu eu."</em></div></td>
+            <td>Intuiție, instincte, nesupus de proces. Performant, dar dificil de scalat.</td>
+            <td>25%</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Hard Worker<em>"Sun mai mult, sun mai bine."</em></div></td>
+            <td>Activity-driven. Motivat. Bun la deal-uri simple, mediocru la complex.</td>
+            <td>17%</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Reactive Problem Solver<em>"Rezolv ce-mi cere."</em></div></td>
+            <td>Detail-oriented post-vânzare. Bun la implementare, slab la pipeline nou.</td>
+            <td>12%</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Relationship Builder<em>"Suntem prieteni acum."</em></div></td>
+            <td>Time-spent cu clientul, avoidance de conflict. <strong>Modelul preferat în mod tradițional.</strong></td>
+            <td><strong>7%</strong> — ultimul. Surpriza studiului.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="pullquote">
+        <p>Buyerii nu vor un prieten. Vor pe cineva care le arată ce nu văd. Relationship builder-ul evită exact conversația care vinde.</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Cele trei mișcări</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Ce face Challenger-ul, <em>concret</em>.</h2>
+
+      <div class="duo-box trio">
+        <div class="duo-item">
+          <h4>/ Mișcarea 01</h4>
+          <h3>Teach</h3>
+          <p>Aduce un <em>commercial insight</em> nou — ceva ce buyerul nu știa despre propriul lui business, industrie, sau cost de oportunitate. Nu fapte generale — insight specific care duce la soluția ta.</p>
+        </div>
+        <div class="duo-item">
+          <h4>/ Mișcarea 02</h4>
+          <h3>Tailor</h3>
+          <p>Adaptează insight-ul la rolul, industria, prioritățile fiecărui stakeholder. CFO-ul vrea cifre. CTO-ul vrea risk. VP Sales vrea velocity. Același insight, trei versiuni.</p>
+        </div>
+        <div class="duo-item">
+          <h4>/ Mișcarea 03</h4>
+          <h3>Take Control</h3>
+          <p>Nu evită conflictul. Împinge înapoi pe assumptions. Discută bani devreme. Refuză RFP-uri prost construite. <strong>Confortabil cu tensiune.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">IV</div>
+      <div class="section-header">
+        <div class="section-tag">§ 04 — Pitch structure</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Cele șase faze ale unui <em>Challenger pitch</em>.</h2>
+
+      <div class="sequence">
+        <div class="sequence-step">
+          <div class="sequence-num">i</div>
+          <div class="sequence-body">
+            <h4>Warmer</h4>
+            <p>Demonstrezi că-i înțelegi business-ul mai bine decât te aștepta. Date, observații, pattern-uri. Câștigi dreptul moral să provoci.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">ii</div>
+          <div class="sequence-body">
+            <h4>Reframe</h4>
+            <p><strong>Momentul disruptiv.</strong> Introduci insight-ul care contrazice viziunea curentă a buyerului despre problemă. "Crezi că problema e X. De fapt e Y — și asta schimbă tot."</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">iii</div>
+          <div class="sequence-body">
+            <h4>Rational Drowning</h4>
+            <p>Hard data care suportă reframe-ul. Studii, benchmarks, costuri ascunse. Logică incontestabilă.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">iv</div>
+          <div class="sequence-body">
+            <h4>Emotional Impact</h4>
+            <p>Conectezi insight-ul la propria realitate a buyerului. "Asta sună cunoscut?" "Vezi pattern-ul ăsta și la voi?" Recunoaștere personală.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">v</div>
+          <div class="sequence-body">
+            <h4>A New Way</h4>
+            <p>Schițezi cum ar arăta lumea cu problema rezolvată — <em>fără să vinzi încă produsul.</em> Doar visiunea.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">vi</div>
+          <div class="sequence-body">
+            <h4>Your Solution</h4>
+            <p>Abia acum produsul. Și produsul e deja contextualizat ca singura cale credibilă spre "noul mod". Pitch-ul s-a vândut singur până aici.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>Ai insight real, ne-evident, validat cu date</li>
+            <li>Buyerul e în Even Keel mode (status quo)</li>
+            <li>Vinzi un produs care necesită schimbare de mindset</li>
+            <li>Categorie nouă, sau disruption a unei piețe</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>Nu ai insight diferit — atunci pari arogant</li>
+            <li>Buyerul are deja procesul stabilit</li>
+            <li>Cultură reziduală post-pandemie de evitare a conflictului</li>
+            <li>SDR / SMB transactional</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: SANDLER                                      -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="sandler" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul V — Seller-led discipline</div>
+        <h1 class="chapter-title">Sandler<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>1967 — Maryland</span>
+        <span style="margin-top: 10px;"><strong>Autor</strong></span>
+        <span>David Sandler</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>SaaS mid-market,<br>services, agencies</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Buyerul controlează <em>dansul</em>. Sandler inversează cine conduce.</h2>
+      <p class="drop-cap wide">
+        Vânzătorul tradițional e flămând: spune da la fiecare cerere, livrează
+        demo-uri gratis, urmărește emailuri ne-întoarse luni de zile, oferă
+        discount-uri pentru "să închidă". Buyerul exploatează asta — natural,
+        nu vicios. Sandler propune opusul: <em>vânzătorul stabilește regulile</em>,
+        cere reciprocitate, și disqualifică agresiv. E o disciplină — mai mult
+        decât o tehnică.
+      </p>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Submarinul cu șapte compartimente</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Etanș la fiecare etaj. <em>Închizi unul</em>, deschizi următorul.</h2>
+      <p class="wide">Metafora oficială Sandler: un submarin. Fiecare compartiment trebuie sigilat înainte să treci la următorul. Sari peste? Întregul deal se umple cu apă.</p>
+
+      <div class="sequence">
+        <div class="sequence-step">
+          <div class="sequence-num">1</div>
+          <div class="sequence-body">
+            <h4>Bonding & Rapport</h4>
+            <p>Stabilești încredere și ton egal. Nu sub-servient, nu agresiv. Peer-to-peer. Aici se setează tipul de relație pe care o vrei pe tot deal-ul.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">2</div>
+          <div class="sequence-body">
+            <h4>Up-Front Contracts</h4>
+            <p>Înainte de fiecare meeting: agendă, durată, deciziile posibile la final ("yes / no / next step"). <strong>Niciodată "let's see how it goes".</strong> Eliminați "no decision".</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">3</div>
+          <div class="sequence-body">
+            <h4>Pain</h4>
+            <p>Pain Funnel (vezi mai jos) — săpat până la pain emoțional + cost cuantificat. Fără pain real, nu treci mai departe.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">4</div>
+          <div class="sequence-body">
+            <h4>Budget</h4>
+            <p>Discutați bani <em>înainte</em> de demo. "Investiția pentru o problemă de mărimea asta e de obicei $50–150K/an. Are sens să continuăm?" Disqualifică acum.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">5</div>
+          <div class="sequence-body">
+            <h4>Decision</h4>
+            <p>Cine, cum, când. Ce trebuie să vadă ca să spună da. Procesul exact. Niciun demo înainte ca asta să fie clar.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">6</div>
+          <div class="sequence-body">
+            <h4>Fulfillment</h4>
+            <p>Abia acum demo / propunere. Și acum e o formalitate — fitting pentru o problemă deja calificată, cu buget validat și proces clar.</p>
+          </div>
+        </div>
+        <div class="sequence-step">
+          <div class="sequence-num">7</div>
+          <div class="sequence-body">
+            <h4>Post-Sell</h4>
+            <p>Blochezi "buyer's remorse" și competitor-ul care intră in extremis. "E ceva care te-ar putea face să te răzgândești în următoarele două săptămâni?"</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Pain Funnel</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Șapte întrebări care duc de la <em>"avem o problemă"</em> la <em>"trebuie să rezolvăm acum"</em>.</h2>
+
+      <ul class="flags-list">
+        <li><span class="flag-num">/ 01</span><span class="flag-text">Spune-mi mai multe despre asta.</span></li>
+        <li><span class="flag-num">/ 02</span><span class="flag-text">Poți fi mai specific? Dă-mi un exemplu concret.</span></li>
+        <li><span class="flag-num">/ 03</span><span class="flag-text">De cât timp ai problema asta?</span></li>
+        <li><span class="flag-num">/ 04</span><span class="flag-text">Ce ai încercat să faci ca să o rezolvi?</span></li>
+        <li><span class="flag-num">/ 05</span><span class="flag-text">A funcționat?</span></li>
+        <li><span class="flag-num">/ 06</span><span class="flag-text">Cât crezi că te-a costat asta — în bani, timp, oameni?</span></li>
+        <li><span class="flag-num">/ 07</span><span class="flag-text">Cum te simți să fi cheltuit toți banii ăștia, iar problema să existe în continuare?</span></li>
+      </ul>
+
+      <p class="wide">Întrebarea 7 e <em>controversată</em> — dar funcționează. Aduce conversația la planul emoțional, unde se ia decizia de schimbare. Fără emoție, deal-ul rămâne "interesant" și moare amiabil în pipeline.</p>
+
+      <div class="pullquote">
+        <p>Negative reverse: când buyerul ezită, Sandler învață vânzătorul să spună "Poate nu suntem fit pentru voi" — și să oprească pitch-ul. De obicei buyerul cere să continui.</p>
+      </div>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>Vinzi mid-market software / services</li>
+            <li>Cycle 2 weeks – 4 months</li>
+            <li>Vrei să elimini "no decision" din pipeline</li>
+            <li>Trainezi un SDR / AE junior</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>Enterprise multi-stakeholder (folosește MH)</li>
+            <li>PLG / self-serve</li>
+            <li>Cultura buyerului penalizează "pushiness"</li>
+            <li>Vânzător fără disciplină — devine robotic</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: COMMAND OF THE MESSAGE                       -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="command" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Capitolul VI — Value messaging</div>
+        <h1 class="chapter-title">Command of<br>the Message<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Originat</strong></span>
+        <span>2003 — Force Mgmt</span>
+        <span style="margin-top: 10px;"><strong>Folosit la</strong></span>
+        <span>Salesforce, Splunk,<br>ServiceNow, Veeam</span>
+        <span style="margin-top: 10px;"><strong>Pentru</strong></span>
+        <span>Value selling,<br>articulating ROI</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">I</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Problema</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Demo-ul tău arată <em>feature-uri</em>. Buyerul cumpără <em>rezultate</em>.</h2>
+      <p class="drop-cap wide">
+        Force Management a construit framework-ul ăsta lucrând cu sales teams
+        la Salesforce, Veeam, Splunk, ServiceNow. Premisa: vânzătorul mediu
+        vorbește despre <em>ce face produsul</em>. Vânzătorul senior vorbește
+        despre <em>ce rezolvă</em>. Vânzătorul de top vorbește despre <em>ce
+        câștigă buyerul</em> — în limbajul buyerului, cuantificat, atribuit unei
+        capabilități clare. Command of the Message e disciplina care forțează
+        tranziția asta. Se cuplează nativ cu MEDDPICC.
+      </p>
+    </section>
+
+    <section>
+      <div class="chapter-num">II</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Cele patru piese</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Patru elemente. <em>Toate</em>, sau mesajul cade.</h2>
+
+      <div class="buyers-grid">
+        <div class="buyer-card">
+          <div class="buyer-num">/ 01</div>
+          <div class="buyer-name">Positive Business <em>Outcomes</em></div>
+          <div class="buyer-tagline">"Ce vrea de fapt?"</div>
+          <div class="buyer-desc">Rezultatele finale pe care buyerul le urmărește: <strong>revenue growth, cost reduction, risk mitigation, time-to-market.</strong> Articulate în limbajul lui, nu al tău.</div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ 02</div>
+          <div class="buyer-name">Required <em>Capabilities</em></div>
+          <div class="buyer-tagline">"Ce trebuie să poată face?"</div>
+          <div class="buyer-desc">Capabilitățile necesare pentru a obține outcome-ul. <strong>Punte între problema și produs.</strong> Aici câștigi competiția pe criterii pe care le-ai influențat.</div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ 03</div>
+          <div class="buyer-name">Your <em>Solution</em></div>
+          <div class="buyer-tagline">"Cum livrezi capabilitățile."</div>
+          <div class="buyer-desc">Abia acum produsul. Și fiecare feature e mapat 1:1 la o capabilitate, care e mapată la un outcome. <strong>Nu vinzi feature; vinzi traseul.</strong></div>
+        </div>
+        <div class="buyer-card">
+          <div class="buyer-num">/ 04</div>
+          <div class="buyer-name">Proof <em>Points</em></div>
+          <div class="buyer-tagline">"De ce să te cred?"</div>
+          <div class="buyer-desc">Customer stories, metrici, benchmarks, case studies. <strong>Specifice pe industrie, mărime, persona.</strong> Generic = zero credibilitate la enterprise.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="chapter-num">III</div>
+      <div class="section-header">
+        <div class="section-tag">§ 03 — Value Framework: Before / After</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Modelul oficial — cum construiești <em>narațiunea</em>.</h2>
+
+      <div class="blue-sheet" data-label="VALUE FRAMEWORK">
+        <div class="blue-sheet-title">Persona: VP Engineering · Industry: FinTech mid-market</div>
+        <div class="blue-sheet-grid">
+          <div class="bs-field">
+            <h5>Before — Lumea Actuală</h5>
+            <p><em>Deployment cycles de 3 săptămâni.</em> 40% timp inginer pe ops manual. 2 incidente prod / lună. Audit fail pe SOC2 trail.</p>
+          </div>
+          <div class="bs-field">
+            <h5>After — Lumea Dorită</h5>
+            <p><em>Deployment în 2 ore.</em> 90% ops automate. Zero incidente nepronunțate. Audit clean. Engineering retention +20%.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Required Capabilities</h5>
+            <p>CI/CD orchestration · GitOps state management · audit trail automat · rollback in &lt; 60s · RBAC granular per environment.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Our Differentiated Value</h5>
+            <p>Singura platformă care livrează <em>toate cele 5 capabilități native</em>, fără 3 vendori stitched. -40% TCO față de combo Jenkins + Spinnaker + ArgoCD.</p>
+          </div>
+          <div class="bs-field">
+            <h5>Quantified Outcome</h5>
+            <p>Engineering velocity +35% · OpEx -$1.1M/an · audit prep de la 6 săpt la 4 zile. <em>Payback &lt; 7 luni.</em></p>
+          </div>
+          <div class="bs-field">
+            <h5>Proof</h5>
+            <p>Plaid (similar mărime), Stripe Treasury, Mercury Bank. Case study published. Reference call disponibil.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pullquote">
+        <p>Force Management spune: dacă AE-ul nu poate articula valoarea în 60 de secunde fără slide-uri, nu o știe. Dacă nu o știe, nu o poate apăra când buyerul împinge pe preț.</p>
+      </div>
+
+      <div class="when-box">
+        <div class="when-yes">
+          <h5>Folosește când</h5>
+          <ul>
+            <li>Software / services enterprise</li>
+            <li>Categorie crowded — diferențierea = supraviețuirea</li>
+            <li>AE-ul trebuie să vândă valoare, nu funcții</li>
+            <li>Cuplezi cu MEDDPICC pentru forecast</li>
+          </ul>
+        </div>
+        <div class="when-no">
+          <h5>Sari peste când</h5>
+          <ul>
+            <li>Produs încă în search de PMF</li>
+            <li>Nu ai customer stories cuantificate</li>
+            <li>Outcome-urile încă nu sunt clare</li>
+            <li>Vinzi developer tools self-serve</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: SINTEZA                                      -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="sinteza" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Sinteză — Cum alegi & cum combini</div>
+        <h1 class="chapter-title">Matricea<em>.</em></h1>
+      </div>
+      <div class="chapter-meta">
+        <span><strong>Context</strong></span>
+        <span>Care framework, când</span>
+        <span style="margin-top: 10px;"><strong>Combinabilitate</strong></span>
+        <span>Care merg împreună</span>
+      </div>
+    </div>
+
+    <section>
+      <div class="chapter-num">·</div>
+      <div class="section-header">
+        <div class="section-tag">§ 01 — Care framework, când</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Niciunul nu e <em>universal</em>. Fiecare are un context propriu.</h2>
+
+      <table class="modes-table">
+        <thead>
+          <tr>
+            <th style="width: 22%;">Framework</th>
+            <th style="width: 30%;">Scenariul ideal</th>
+            <th>Punctul lui forte</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mode-name">Miller Heiman<em>Strategic Selling</em></div></td>
+            <td>Enterprise, 5+ stakeholders, $100K+, 6+ luni cycle.</td>
+            <td>Mapping de oameni și politică internă.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">MEDDIC / MEDDPICC<em>Qualification</em></div></td>
+            <td>SaaS pipeline review, forecast accuracy, dealroom hygiene.</td>
+            <td>Disciplină de calificare cuantificabilă.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">SPIN<em>Discovery</em></div></td>
+            <td>Discovery call de 30–60 min, buyer care nu-și conștientizează pain-ul.</td>
+            <td>Structura întrebărilor — Implication mai ales.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Challenger<em>Insight-led</em></div></td>
+            <td>Buyer în Even Keel, categorie nouă, ai insight nemainevăzut.</td>
+            <td>Disruption + tensiune productivă.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Sandler<em>Seller-led discipline</em></div></td>
+            <td>Mid-market software, cycle 2 săpt – 4 luni, trainezi seller-i tineri.</td>
+            <td>Up-front contracts + disqualification rapid.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Command of Message<em>Value framing</em></div></td>
+            <td>Categorii crowded, AE-ul trebuie să apere valoarea sub presiune de preț.</td>
+            <td>Articulare ROI + Before/After narrative.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <div class="chapter-num">·</div>
+      <div class="section-header">
+        <div class="section-tag">§ 02 — Stack-uri care funcționează</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>În practică, echipele de top <em>combină</em> 2–3 frameworks.</h2>
+
+      <div class="compare-grid">
+        <div class="compare-card">
+          <h4>Stack SaaS clasic</h4>
+          <p><strong>MEDDPICC</strong> pentru qualification & forecast · <strong>SPIN</strong> pentru discovery calls · <strong>Command of the Message</strong> pentru pitch & business case. Folosit la Salesforce, MongoDB, Datadog.</p>
+        </div>
+        <div class="compare-card">
+          <h4>Stack enterprise complex</h4>
+          <p><strong>Miller Heiman</strong> pentru account strategy & politică · <strong>MEDDPICC</strong> pentru qualification pe fiecare opportunity din cont · <strong>Challenger</strong> pentru pitch executive.</p>
+        </div>
+        <div class="compare-card">
+          <h4>Stack mid-market velocity</h4>
+          <p><strong>Sandler</strong> pentru discipline pe calls · <strong>SPIN</strong> pentru discovery · <strong>MEDDIC</strong> light pentru pipeline review. Mai puțină ceremonie, mai multă velocity.</p>
+        </div>
+      </div>
+
+      <p class="wide" style="margin-top: 40px;">Regula nescrisă: <em>un framework de account</em>, <em>unul de conversație</em>, <em>unul de message</em>. Mai mult de trei = ceremony. Mai puțin = lipsește o piesă.</p>
+    </section>
+
+    <div class="verdict">
+      <h3>Niciun framework nu vinde singur. Dar fără framework, vinzi doar pe <em>noroc și carismă</em>.</h3>
+      <p>Cele șase metodologii din acest compendiu nu se exclud — se completează. Miller Heiman îți spune <em>cui</em> vinzi, MEDDIC <em>cât de real</em> e dealul, SPIN <em>cum</em> deschizi conversația, Challenger <em>ce</em> spui ca să provoci, Sandler <em>cum</em> menții controlul, iar Command of the Message <em>cum</em> articulezi valoarea sub presiune. Cea mai mare oportunitate astăzi nu e să alegi unul — e să automatizezi rigoarea tuturor, ca AE-ul să nu mai piardă șase ore săptămânal completând Blue Sheets, scorecards și battle cards de mână. Aici devine framework-ul produs.</p>
     </div>
   </div>
 
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Într-un deal mare, nu vinzi unui om. Vinzi unui <em>comitet</em>.</h2>
-    <p class="drop-cap wide">
-      La nivel enterprise — deal-uri de $100K și mai sus — fiecare decizie
-      implică 5–10 oameni, fiecare cu interese diferite, unii pe care
-      vânzătorul nu îi vede niciodată. Aici se pierd majoritatea
-      tranzacțiilor.
-    </p>
-    <p>Vânzătorii pierd deal-uri pentru că:</p>
-    <ul class="flags-list">
-      <li><span class="flag-num">/ 01</span><span class="flag-text">Vorbesc doar cu user-ul, dar economic buyer-ul taie bugetul în ultimul moment.</span></li>
-      <li><span class="flag-num">/ 02</span><span class="flag-text">Cred că au champion intern — dar champion-ul lor nu are influență reală.</span></li>
-      <li><span class="flag-num">/ 03</span><span class="flag-text">Nu văd <em>stealth opposition</em> — cineva care lucrează împotriva lor pe la spate.</span></li>
-    </ul>
-    <div class="pullquote">
-      <p>Miller Heiman zice: mapează toți actorii, înțelege rolul fiecăruia, gestionează-i diferit.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Cele patru roluri</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Fiecare persoană joacă <em>unul</em> (sau mai multe) din aceste patru roluri.</h2>
-
-    <div class="buyers-grid">
-      <div class="buyer-card">
-        <div class="buyer-num">/ ROL 01</div>
-        <div class="buyer-name">Economic <em>Buyer</em></div>
-        <div class="buyer-tagline">"Spune da sau nu la final."</div>
-        <div class="buyer-desc">Are banii, semnează. <strong>Unul singur per deal.</strong> De obicei mai sus decât crezi — CFO, CEO pe deal-uri mari. Dacă nu îl identifici, deal-ul moare lent.</div>
+  <!-- ════════════════════════════════════════════════ -->
+  <!-- TAB: SIMULATOR                                    -->
+  <!-- ════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="simulator" role="tabpanel">
+    <div class="chapter-divider">
+      <div>
+        <div class="chapter-label">Simulator — Sales Health Check</div>
+        <h1 class="chapter-title">Cinci<br>dimensiuni<em>.</em></h1>
       </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ ROL 02</div>
-        <div class="buyer-name">Technical <em>Buyer</em></div>
-        <div class="buyer-tagline">"Poate spune NU, nu poate spune DA."</div>
-        <div class="buyer-desc">Evaluează soluția pe criterii — security, integrări, compliance. <strong>Job-ul lui e să găsească motive să te respingă.</strong> Procurement, IT security, legal stau aici.</div>
-      </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ ROL 03</div>
-        <div class="buyer-name">User <em>Buyer</em></div>
-        <div class="buyer-tagline">"O să o folosesc zilnic. Îmi pasă."</div>
-        <div class="buyer-desc">Oamenii care vor folosi produsul efectiv. Le pasă de impactul pe job-ul lor. <strong>Pot accelera sau sabota</strong> implementarea după semnare.</div>
-      </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ ROL 04</div>
-        <div class="buyer-name">Coach <em>/ Champion</em></div>
-        <div class="buyer-tagline">"Vrea ca tu să câștigi."</div>
-        <div class="buyer-desc">Insider care vrea să câștigi tu. Îți dă informații, te ajută să navighezi politica internă. <strong>Fără coach, nu închizi deal-ul.</strong> Trebuie să fie credibil intern și să aibă acces real.</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Win-Results</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Pentru fiecare actor, <em>două</em> întrebări.</h2>
-
-    <div class="duo-box">
-      <div class="duo-item">
-        <h4>/ Personal</h4>
-        <h3>Win</h3>
-        <p>Ce câștigă PERSONAL acest om? Promovare, vizibilitate, life-ul lui mai ușor, mai puțin stres acasă, un win pe care îl poate povesti la următorul one-on-one.</p>
-      </div>
-      <div class="duo-item">
-        <h4>/ Organizațional</h4>
-        <h3>Result</h3>
-        <p>Ce câștigă ORGANIZAȚIA? Cost reduction, revenue uplift, compliance, time-to-market, reducere de risc operațional. Asta intră în business case.</p>
+      <div class="chapter-meta">
+        <span><strong>Format</strong></span>
+        <span>Interactiv · live update</span>
+        <span style="margin-top: 10px;"><strong>Întreabă</strong></span>
+        <span>Cât de sănătos<br>e business-ul tău?</span>
+        <span style="margin-top: 10px;"><strong>Timp</strong></span>
+        <span>≈ 3 minute</span>
       </div>
     </div>
 
-    <p class="wide"><em>Vinzi pe ambele.</em> Result-ul intră în slide-urile oficiale; win-ul intră în conversația 1-on-1 cu fiecare actor. Vânzătorii slabi vorbesc doar de result — și ratează exact pârghia care mișcă decizia.</p>
-  </section>
+    <section>
+      <div class="section-header">
+        <div class="section-tag">§ — Despre simulator</div>
+        <div class="section-rule"></div>
+      </div>
+      <h2>Frameworks-urile <em>te ajută să închizi</em>. Dimensiunile de mai jos îți spun dacă <em>ar trebui</em> să închizi.</h2>
+      <p class="wide drop-cap">
+        Un AE bun cu Miller Heiman + MEDDPICC închide deal-uri. Dar dacă
+        produsul nu livrează ce promite demo-ul, dacă cumperi buyer-i în
+        afara ICP-ului, dacă concurezi pe discount fără autoritate de
+        piață — închizi <em>mai mult decât poți susține</em>. Simulatorul
+        ăsta măsoară cinci tensiuni care decid dacă vinzi un business
+        sănătos sau scalezi entropie.
+      </p>
+      <p class="wide">
+        Mută slider-ele pentru fiecare dimensiune. Radar-ul din dreapta se
+        actualizează live. Verdict-ul se schimbă în timp real.
+      </p>
+    </section>
 
-  <section>
-    <div class="chapter-num">IV</div>
-    <div class="section-header">
-      <div class="section-tag">§ 04 — Red Flags & Response Modes</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Semnele că deal-ul tău este <em>în pericol</em>.</h2>
+    <!-- DIMENSIONS -->
+    <div class="sim-dimensions">
 
-    <ul class="flags-list">
-      <li><span class="flag-num">/ 01</span><span class="flag-text">Nu ai identificat economic buyer-ul real.</span></li>
-      <li><span class="flag-num">/ 02</span><span class="flag-text">Coach-ul tău nu este credibil intern.</span></li>
-      <li><span class="flag-num">/ 03</span><span class="flag-text">Informația despre cont vine doar dintr-o singură sursă.</span></li>
-      <li><span class="flag-num">/ 04</span><span class="flag-text">Reorganizare sau schimbare executivă recentă în cont.</span></li>
-      <li><span class="flag-num">/ 05</span><span class="flag-text">Nu ai întâlnit niciodată un buyer key în persoană (sau pe video).</span></li>
-    </ul>
-
-    <h3 class="subhead">Și <em>patru</em> mood-uri în care poți găsi un buyer.</h3>
-
-    <table class="modes-table">
-      <thead>
-        <tr>
-          <th style="width: 25%;">Mode</th>
-          <th style="width: 35%;">Ce simte buyerul</th>
-          <th>Cât de greu de vândut</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="mode-name">Growth<em>"Vreau mai mult."</em></div></td>
-          <td>Vrea +X% performance, expansiune, capabilități noi.</td>
-          <td>Receptiv. Vinzi upside-ul.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Trouble<em>"Ceva e stricat."</em></div></td>
-          <td>Are durere acută, vrea fix urgent. Pierdere de bani sau timp în curs.</td>
-          <td><strong>Cel mai bun mod pentru tine.</strong> Vinzi remediul.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Even Keel<em>"Totul e OK."</em></div></td>
-          <td>Nu vede problemă, nu vrea schimbare. Status quo confortabil.</td>
-          <td>Foarte greu. Trebuie să creezi insight nou.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Overconfident<em>"Suntem cei mai buni."</em></div></td>
-          <td>Crede că e mai bine decât e în realitate. Negare activă.</td>
-          <td>Imposibil — până nu se prăbușește ceva.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section>
-    <div class="chapter-num">V</div>
-    <div class="section-header">
-      <div class="section-tag">§ 05 — Blue Sheet (în practică)</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Pe fiecare deal mare: un <em>battle plan</em> de o pagină.</h2>
-
-    <p class="wide">Blue Sheet-ul — literal o foaie albastră, în origine — se actualizează după fiecare interacțiune cu contul. Arată cam așa:</p>
-
-    <div class="blue-sheet" data-label="BLUE SHEET">
-      <div class="blue-sheet-title">Account: Acme Industries · Deal: Data Platform Modernization · $850K ACV</div>
-      <div class="blue-sheet-grid">
-        <div class="bs-field">
-          <h5>Economic Buyer</h5>
-          <p><em>Sarah K., CFO</em> — întâlnită 1×, validat budget authority până la $1M. Win: trim. Q4 cost narrative.</p>
+      <!-- DIMENSION 1: PITCH vs REALITY -->
+      <div class="sim-dim" data-dim="pitch-reality">
+        <div class="sim-dim-header">
+          <span class="sim-dim-num">/ DIM 01</span>
+          <h3>Pitch <em>vs</em> Reality</h3>
         </div>
-        <div class="bs-field">
-          <h5>Technical Buyer</h5>
-          <p><em>Marcus T., VP Infrastructure</em> — sceptic pe vendor lock-in. Win: control technical. Result: 30% reducere OpEx.</p>
+        <p>Distanța dintre ce promite marketing-ul/sales-ul și ce livrează produsul în producție. Demo-ul arată magic, prod-ul abia merge? Gap mare = red flag major. Churn, refund-uri, NPS scăzut, suport care arde.</p>
+
+        <div class="sim-slider-group">
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Cât de mult promite pitch-ul/demo-ul</span>
+              <span class="sim-slider-value" data-value="pitch-reality.pitch">7</span>
+            </div>
+            <input type="range" min="1" max="10" value="7" class="sim-slider" data-input="pitch-reality.pitch">
+            <div class="sim-slider-hint"><span>conservator</span><span>magic-show</span></div>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Cât de bine livrează produsul în prod</span>
+              <span class="sim-slider-value" data-value="pitch-reality.reality">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="pitch-reality.reality">
+            <div class="sim-slider-hint"><span>fragil</span><span>solid &amp; predictibil</span></div>
+          </div>
         </div>
-        <div class="bs-field">
-          <h5>Coach</h5>
-          <p><em>Diana R., Director Data</em> — credibilitate medie-mare, raport direct la CTO. Promovată recent → motivat să livreze.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Response Mode dominant</h5>
-          <p><em>Trouble</em> — incident de production în Q2. Board pressure pentru remediation plan.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Red Flags</h5>
-          <p><em>1 activ:</em> nu am întâlnit încă CTO-ul (potențial decision-maker). Action: cere intro prin Diana.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Next Action</h5>
-          <p><em>Joi, 14:00</em> — workshop cu Marcus + 2 ingineri. Obiectiv: validate technical fit + bridge la CTO.</p>
+
+        <div class="sim-dim-score">
+          <span class="sim-score-label">Health</span>
+          <div class="sim-score-bar"><div class="sim-score-bar-fill" data-bar="pitch-reality"></div></div>
+          <span class="sim-score-value" data-score="pitch-reality">—</span>
         </div>
       </div>
-    </div>
 
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>Deal ACV &gt; $100K</li>
-          <li>5+ stakeholders identificați</li>
-          <li>Sales cycle &gt; 3 luni</li>
-          <li>Politică internă vizibilă</li>
-        </ul>
-      </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>SMB, self-serve, PLG</li>
-          <li>Deal-uri &lt; $20K ACV</li>
-          <li>1–2 stakeholders</li>
-          <li>Velocity &gt; rigor</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER II — MEDDIC / MEDDPICC                                   -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="meddic">
-    <div>
-      <div class="chapter-label">Capitolul II — Qualification & Forecast</div>
-      <h1 class="chapter-title">MEDDIC<em>,</em><br>MEDDPICC<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>1996 — PTC</span>
-      <span style="margin-top: 10px;"><strong>Autori</strong></span>
-      <span>D. Dunkel, J. Napoli</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>SaaS forecast accuracy,<br>deal qualification</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Pipeline-ul tău <em>minte</em>. MEDDIC îl forțează să spună adevărul.</h2>
-    <p class="drop-cap wide">
-      Inventat la PTC în anii '90, MEDDIC a devenit standardul de calificare
-      în SaaS. Salesforce, MongoDB, Snowflake, Datadog — toate folosesc
-      vreo variantă. Motivul e brutal de simplu: <em>forecast accuracy</em>.
-      Dacă nu poți răspunde la toate literele, nu ai un deal — ai o ipoteză.
-    </p>
-    <p>Cele opt litere (MEDDPICC e versiunea extinsă):</p>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Cele opt litere</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Fiecare literă = o întrebare la care <em>trebuie</em> să răspunzi.</h2>
-
-    <div class="buyers-grid">
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ M</div>
-        <div class="letter-glyph">M<em>etrics</em></div>
-        <div class="buyer-tagline">"Ce număr se mișcă?"</div>
-        <div class="buyer-desc">Impactul cuantificat — <strong>$, %, ore, MTTR.</strong> Nu "îmbunătățim eficiența", ci "reducem timpul de procesare de la 4h la 12 min, economie $1.2M/an".</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ E</div>
-        <div class="letter-glyph">E<em>conomic Buyer</em></div>
-        <div class="buyer-tagline">"Cine semnează cecul?"</div>
-        <div class="buyer-desc">Persoana cu autoritate discreționară pentru buget. <strong>L-ai întâlnit?</strong> Dacă nu — ai un deal cu un proxy, nu cu decident.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ D</div>
-        <div class="letter-glyph">D<em>ecision Criteria</em></div>
-        <div class="buyer-tagline">"După ce criterii aleg?"</div>
-        <div class="buyer-desc">Lista oficială folosită pentru a compara vendori. <strong>Tehnice, business, relaționale.</strong> Dacă nu o cunoști, nu poți tailor mesajul — și nu poți influența scorul.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ D</div>
-        <div class="letter-glyph">D<em>ecision Process</em></div>
-        <div class="buyer-tagline">"Pașii exacți până la PO."</div>
-        <div class="buyer-desc">Cine semnează când, în ce ordine, ce aprobare formală. <strong>Procurement, legal, security review, board.</strong> Fără harta procesului, închidere = noroc.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ I</div>
-        <div class="letter-glyph">I<em>dentify Pain</em></div>
-        <div class="buyer-tagline">"De ce acum?"</div>
-        <div class="buyer-desc">Durere reală, măsurabilă, atribuită cu nume. <strong>"Nice to have" nu se închide niciodată.</strong> Pain-ul trebuie să fie acut și public-recunoscut intern.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ C</div>
-        <div class="letter-glyph">C<em>hampion</em></div>
-        <div class="buyer-tagline">"Cine vinde când nu ești în cameră?"</div>
-        <div class="buyer-desc">Definiție strictă: are <strong>putere</strong>, <strong>beneficiu personal</strong> dacă închizi, și <strong>te vinde activ</strong>. Un fan fără putere nu e champion. Un șef neutru nici atât.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ P</div>
-        <div class="letter-glyph">P<em>aper Process</em></div>
-        <div class="buyer-tagline">"Cât durează drumul contractului?"</div>
-        <div class="buyer-desc">Adăugat în MEDDPICC. Procurement, MSA, security review, DPA, infosec questionnaire. <strong>3–12 săptămâni</strong> de obicei. Începe devreme sau pierzi quarter-ul.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ C</div>
-        <div class="letter-glyph">C<em>ompetition</em></div>
-        <div class="buyer-tagline">"Cu cine te bați real?"</div>
-        <div class="buyer-desc">Inclusiv "do nothing" și "build in-house" — concurenți tăcuți care câștigă cel mai des. <strong>Cunoaște-le slăbiciunile, prepara-ți coach-ul cu contraargumente.</strong></div>
-      </div>
-    </div>
-
-    <div class="pullquote">
-      <p>Regula PTC: dacă nu poți răspunde clar la fiecare literă, deal-ul nu e în forecast. Punct.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Champion ≠ Fan</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Cea mai prost înțeleasă literă din framework.</h2>
-    <p class="wide">"Am champion" e cea mai comună minciună pe care AE-ul și-o spune singur. MEDDIC pretinde <em>trei</em> teste simultane:</p>
-
-    <div class="duo-box trio">
-      <div class="duo-item">
-        <h4>/ Test 01</h4>
-        <h3>Power</h3>
-        <p>Are influență recunoscută intern. Oamenii îi ascultă opinia. Nu e neapărat seniorul — uneori e tech lead-ul ascultat de CTO.</p>
-      </div>
-      <div class="duo-item">
-        <h4>/ Test 02</h4>
-        <h3>Benefit</h3>
-        <p>Câștigă ceva personal dacă închizi: visibility, promovare, life mai ușor, problem pe care chiar el îl simte rezolvat.</p>
-      </div>
-      <div class="duo-item">
-        <h4>/ Test 03</h4>
-        <h3>Action</h3>
-        <p>Te vinde activ când nu ești în cameră. Ai dovezi: îți forwardează emailuri, îți organizează întâlniri, repetă mesajul tău intern.</p>
-      </div>
-    </div>
-
-    <p class="wide">Lipsește unul din trei → ai un <em>coach</em>, nu un champion. Coach-ul dă informație. Champion-ul mută deal-ul.</p>
-  </section>
-
-  <section>
-    <div class="chapter-num">IV</div>
-    <div class="section-header">
-      <div class="section-tag">§ 04 — Scorecard în practică</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Cum arată un deal scor-uit cu <em>MEDDPICC</em>.</h2>
-
-    <div class="blue-sheet" data-label="MEDDPICC SCORECARD">
-      <div class="blue-sheet-title">Acme Industries · Data Platform · $850K ACV · Score: 22/40</div>
-      <div class="blue-sheet-grid">
-        <div class="bs-field">
-          <h5>M — Metrics &nbsp; <em>4/5</em></h5>
-          <p><em>OpEx $1.2M/an</em>, MTTR de la 4h la 30min. Validat cu CFO. Lipsește baseline-ul exact pentru migration cost.</p>
+      <!-- DIMENSION 2: ICP vs BUYER -->
+      <div class="sim-dim" data-dim="icp-buyer">
+        <div class="sim-dim-header">
+          <span class="sim-dim-num">/ DIM 02</span>
+          <h3>ICP <em>vs</em> Buyer</h3>
         </div>
-        <div class="bs-field">
-          <h5>E — Economic Buyer &nbsp; <em>3/5</em></h5>
-          <p><em>Sarah K., CFO</em>. Întâlnită 1×. Nu am confirmat că ea semnează personal — posibil delegat la VP Finance.</p>
+        <p>Profilul de cont ideal (segment / firmografie / use-case pentru care produsul e construit) vs persoana reală care cumpără. Deal-urile în afara ICP-ului strică economics-ul pe termen lung: churn mai mare, suport greu, LTV mic, NPS distorsionat.</p>
+
+        <div class="sim-slider-group">
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Cât de bine se potrivește contul cu ICP-ul tău</span>
+              <span class="sim-slider-value" data-value="icp-buyer.icp">6</span>
+            </div>
+            <input type="range" min="1" max="10" value="6" class="sim-slider" data-input="icp-buyer.icp">
+            <div class="sim-slider-hint"><span>off-ICP</span><span>bullseye</span></div>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Decizia se ia de cineva cu putere reală</span>
+              <span class="sim-slider-value" data-value="icp-buyer.authority">6</span>
+            </div>
+            <input type="range" min="1" max="10" value="6" class="sim-slider" data-input="icp-buyer.authority">
+            <div class="sim-slider-hint"><span>proxy</span><span>economic buyer</span></div>
+          </div>
         </div>
-        <div class="bs-field">
-          <h5>D — Decision Criteria &nbsp; <em>3/5</em></h5>
-          <p>Document oficial primit. Top 3: TCO, security posture, time-to-value. Lipsește weighting-ul intern.</p>
+
+        <div class="sim-dim-score">
+          <span class="sim-score-label">Health</span>
+          <div class="sim-score-bar"><div class="sim-score-bar-fill" data-bar="icp-buyer"></div></div>
+          <span class="sim-score-value" data-score="icp-buyer">—</span>
         </div>
-        <div class="bs-field">
-          <h5>D — Decision Process &nbsp; <em>2/5</em></h5>
-          <p>Cunoaștem: PoC → tech review → security → procurement. <em>Nu</em> cunoaștem timeline-ul exact și gating-ul board.</p>
+      </div>
+
+      <!-- DIMENSION 3: PRICING vs AUTHORITY -->
+      <div class="sim-dim" data-dim="pricing-authority">
+        <div class="sim-dim-header">
+          <span class="sim-dim-num">/ DIM 03</span>
+          <h3>Pricing <em>vs</em> Authority</h3>
         </div>
-        <div class="bs-field">
-          <h5>I — Identify Pain &nbsp; <em>4/5</em></h5>
-          <p>Incident de prod în Q2, board pressure. Pain acut, atribuit, public intern. Foarte tare.</p>
+        <p>Ai autoritate reală pe piață cât să-ți impui prețul, sau ești price-taker care concurează pe discount? Prețul vine din valoare/poziție, sau din "hai să mai las"? Pricing power = brand + dovezi + alternative slabe.</p>
+
+        <div class="sim-slider-group">
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Autoritatea ta pe piață (brand, refs, presa)</span>
+              <span class="sim-slider-value" data-value="pricing-authority.authority">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="pricing-authority.authority">
+            <div class="sim-slider-hint"><span>nimeni nu te știe</span><span>category leader</span></div>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Cât de des dai discount ca să închizi</span>
+              <span class="sim-slider-value" data-value="pricing-authority.discount">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="pricing-authority.discount">
+            <div class="sim-slider-hint"><span>aproape niciodată</span><span>la fiecare deal</span></div>
+          </div>
         </div>
-        <div class="bs-field">
-          <h5>C — Champion &nbsp; <em>2/5</em></h5>
-          <p><em>Diana R.</em> — power MEDIU, benefit DA, action MEDIU. Lipsește dovada că ne vinde când nu suntem în cameră.</p>
+
+        <div class="sim-dim-score">
+          <span class="sim-score-label">Health</span>
+          <div class="sim-score-bar"><div class="sim-score-bar-fill" data-bar="pricing-authority"></div></div>
+          <span class="sim-score-value" data-score="pricing-authority">—</span>
         </div>
-        <div class="bs-field">
-          <h5>P — Paper Process &nbsp; <em>2/5</em></h5>
-          <p>MSA gata. Security questionnaire <em>nu</em> a început. Risc 6–8 săptămâni.</p>
+      </div>
+
+      <!-- DIMENSION 4: DIFFERENTIATION -->
+      <div class="sim-dim" data-dim="differentiation">
+        <div class="sim-dim-header">
+          <span class="sim-dim-num">/ DIM 04</span>
+          <h3>Differentiation</h3>
         </div>
-        <div class="bs-field">
-          <h5>C — Competition &nbsp; <em>2/5</em></h5>
-          <p>Snowflake activ. "Build in-house" considerat de Marcus. Plan slab de displacement pentru build-it option.</p>
+        <p>Cât de clar te diferențiezi de concurență. Ai un moat real (greu de copiat — date proprietare, network effect, switching cost ridicat, IP) sau ești "me too" cu un feature în plus? Diferențierea < 6 = competiția pe preț e doar o chestiune de timp.</p>
+
+        <div class="sim-slider-group">
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Cât de greu e de copiat oferta ta</span>
+              <span class="sim-slider-value" data-value="differentiation.moat">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="differentiation.moat">
+            <div class="sim-slider-hint"><span>copiabil în 6 luni</span><span>moat structural</span></div>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Câți competitori reali ai la masă</span>
+              <span class="sim-slider-value" data-value="differentiation.competition">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="differentiation.competition">
+            <div class="sim-slider-hint"><span>red ocean (10+)</span><span>singur în categorie</span></div>
+          </div>
+        </div>
+
+        <div class="sim-dim-score">
+          <span class="sim-score-label">Health</span>
+          <div class="sim-score-bar"><div class="sim-score-bar-fill" data-bar="differentiation"></div></div>
+          <span class="sim-score-value" data-score="differentiation">—</span>
+        </div>
+      </div>
+
+      <!-- DIMENSION 5: CYCLE vs CAPACITY -->
+      <div class="sim-dim" data-dim="cycle-capacity">
+        <div class="sim-dim-header">
+          <span class="sim-dim-num">/ DIM 05</span>
+          <h3>Cycle <em>vs</em> Capacity</h3>
+        </div>
+        <p>Lungimea ciclului de vânzare raportată la capacitatea ta de a livra. Ciclu lung + capacitate mică = cash flow problem și scalare frântă; ciclu scurt + capacitate suprasolicitată = închizi mai mult decât poți onbarda, calitatea cade, churn early.</p>
+
+        <div class="sim-slider-group">
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Predictibilitatea ciclului (1=haotic, 10=clockwork)</span>
+              <span class="sim-slider-value" data-value="cycle-capacity.cycle">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="cycle-capacity.cycle">
+            <div class="sim-slider-hint"><span>haotic</span><span>predictibil</span></div>
+          </div>
+          <div class="sim-slider-row">
+            <div class="sim-slider-meta">
+              <span class="sim-slider-label">Capacitatea ta de livrare/onboarding</span>
+              <span class="sim-slider-value" data-value="cycle-capacity.capacity">5</span>
+            </div>
+            <input type="range" min="1" max="10" value="5" class="sim-slider" data-input="cycle-capacity.capacity">
+            <div class="sim-slider-hint"><span>overloaded</span><span>spare capacity</span></div>
+          </div>
+        </div>
+
+        <div class="sim-dim-score">
+          <span class="sim-score-label">Health</span>
+          <div class="sim-score-bar"><div class="sim-score-bar-fill" data-bar="cycle-capacity"></div></div>
+          <span class="sim-score-value" data-score="cycle-capacity">—</span>
         </div>
       </div>
     </div>
 
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>SaaS / software cu cycle 1–9 luni</li>
-          <li>Deal-uri $25K – $5M ACV</li>
-          <li>Pipeline review săptămânal</li>
-          <li>Vrei forecast accuracy reală</li>
-        </ul>
+    <!-- RESULT -->
+    <div class="sim-result">
+      <div class="radar-wrap">
+        <svg class="radar" viewBox="-180 -180 360 360" id="radar-svg">
+          <!-- Grid (drawn by JS) -->
+          <g id="radar-grid-group"></g>
+          <!-- Axes (drawn by JS) -->
+          <g id="radar-axis-group"></g>
+          <!-- Data polygon (updated by JS) -->
+          <polygon id="radar-data" class="radar-data" points=""/>
+          <!-- Vertex dots (drawn by JS) -->
+          <g id="radar-dots-group"></g>
+          <!-- Labels (drawn by JS) -->
+          <g id="radar-label-group"></g>
+        </svg>
       </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>SMB transactional, &lt; $10K</li>
-          <li>Self-serve / PLG</li>
-          <li>Cycle &lt; 2 săptămâni</li>
-          <li>Discovery-driven research mode</li>
-        </ul>
-      </div>
-    </div>
-  </section>
 
+      <div class="sim-verdict">
+        <h4>Verdict — live</h4>
+        <h3 data-verdict-title>—</h3>
+        <p data-verdict-text>Mută slider-ele pentru a obține un verdict.</p>
 
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER III — SPIN SELLING                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="spin">
-    <div>
-      <div class="chapter-label">Capitolul III — Discovery framework</div>
-      <h1 class="chapter-title">SPIN<br>Selling<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>1988 — Huthwaite</span>
-      <span style="margin-top: 10px;"><strong>Autor</strong></span>
-      <span>Neil Rackham</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>Discovery structurat<br>în deal-uri lungi</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>"Closing techniques" funcționează pe small deals. Pe enterprise <em>distrug</em> deal-ul.</h2>
-    <p class="drop-cap wide">
-      Neil Rackham a petrecut 12 ani analizând <em>35.000+ apeluri de vânzare</em>
-      în 23 de țări. Rezultatul a inversat ce credeau toți: tehnicile de
-      închidere agresivă (assumptive close, alternative close, urgency),
-      eficiente la deal-uri mici, <em>scad</em> rata de win la deal-uri mari.
-      Concluzia: în software/services complex, vinzi cu întrebări, nu cu pitch.
-    </p>
-    <div class="pullquote">
-      <p>În deal-uri mari, vânzătorul care vorbește cel mai mult e cel care pierde. Vânzătorul care întreabă cel mai bine câștigă.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Cele patru tipuri de întrebări</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>În ordine. Sari peste una, ratezi <em>levierul</em>.</h2>
-
-    <div class="buyers-grid">
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ S</div>
-        <div class="letter-glyph">S<em>ituation</em></div>
-        <div class="buyer-tagline">"Cum arată setup-ul tău acum?"</div>
-        <div class="buyer-desc">Fapte despre starea actuală. <strong>Folosește puține</strong> — buyerul senior le percepe ca pierdere de timp. Mare parte se documentează înainte de call.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ P</div>
-        <div class="letter-glyph">P<em>roblem</em></div>
-        <div class="buyer-tagline">"Ce nu merge bine?"</div>
-        <div class="buyer-desc">Dificultăți, nemulțumiri, frustrări. <strong>Aici intră majoritatea AE-ilor — și se opresc.</strong> Mare greșeală. Problem-ul singur nu vinde.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ I</div>
-        <div class="letter-glyph">I<em>mplication</em></div>
-        <div class="buyer-tagline">"Și ce înseamnă asta pentru..."</div>
-        <div class="buyer-desc"><strong>Pârghia întregului framework.</strong> Forțează buyerul să articuleze consecințele problemei: cost, risk, ratări strategice, impact pe oameni. Aici crește urgența.</div>
-      </div>
-      <div class="buyer-card letter-card">
-        <div class="buyer-num">/ N</div>
-        <div class="letter-glyph">N<em>eed-Payoff</em></div>
-        <div class="buyer-tagline">"Cât ar valora pentru tine dacă..."</div>
-        <div class="buyer-desc">Forțează buyerul <strong>să articuleze el</strong> valoarea soluției. Nu tu îi spui ROI-ul. El îți spune. Mult mai puternic — și apoi îl repetă intern.</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Dialog tipic</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Cum sună în practică — scenă scurtă.</h2>
-
-    <div class="dialogue">
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ AE — S</div>
-        <div class="dialogue-text">Cum gestionați acum incident response-ul pe stack-ul vostru?</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ Buyer</div>
-        <div class="dialogue-text">On-call rotation pe Slack, alerts din Datadog, runbooks în Notion.</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ AE — P</div>
-        <div class="dialogue-text">Ce nu merge bine în setup-ul ăsta?</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ Buyer</div>
-        <div class="dialogue-text">Alert fatigue. Trecem prin 200+ alerte pe săptămână, majoritatea false positives.</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ AE — I</div>
-        <div class="dialogue-text"><em>Și ce înseamnă asta pentru echipă?</em></div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ Buyer</div>
-        <div class="dialogue-text">Doi senior engineers s-au plâns la 1-on-1 luna asta. Unul a primit ofertă afară. Și am ratat un incident real în iulie pentru că s-a pierdut în zgomot.</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ AE — I</div>
-        <div class="dialogue-text"><em>Câte ore pierdeți săptămânal pe triaj de false positives?</em></div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ Buyer</div>
-        <div class="dialogue-text">Realist? 25–30 de ore pe săptămână, de la 5 oameni.</div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ AE — N</div>
-        <div class="dialogue-text"><em>Dacă am reduce false positives cu 80%, cât ar conta pentru tine?</em></div>
-      </div>
-      <div class="dialogue-line">
-        <div class="dialogue-tag">/ Buyer</div>
-        <div class="dialogue-text"><strong>Mi-ar elibera un FTE întreg pe trimestru. Și aș putea retain-ui senior-ii. Asta e easily $200K/an + risk reduction. Cum funcționează produsul vostru?</strong></div>
-      </div>
-    </div>
-
-    <p class="wide">Observă: buyerul a <em>cerut</em> demo-ul. AE-ul nu a pitch-uit niciodată. Aici stă magia: Implication construiește urgența, Need-payoff face buyerul să articuleze el ROI-ul.</p>
-
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>Discovery call structurat</li>
-          <li>Software / services cu pain ascuns</li>
-          <li>Buyerul nu-și conștientizează urgența</li>
-          <li>Vrei buyerul să-și articuleze ROI-ul</li>
-        </ul>
-      </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>Buyerul vine cu RFP deja construit</li>
-          <li>Demo request inbound calificat</li>
-          <li>Transactional, pricing-driven</li>
-          <li>Buyerul cere direct preț</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER IV — CHALLENGER SALE                                     -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="challenger">
-    <div>
-      <div class="chapter-label">Capitolul IV — Insight-led selling</div>
-      <h1 class="chapter-title">Challenger<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>2011 — CEB / Gartner</span>
-      <span style="margin-top: 10px;"><strong>Autori</strong></span>
-      <span>M. Dixon, B. Adamson</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>Vânzare disruptive,<br>complex enterprise</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>"Relațiile bune" <em>nu mai vând</em>. CEB a măsurat-o.</h2>
-    <p class="drop-cap wide">
-      În 2009, CEB (Corporate Executive Board, acum Gartner) a analizat
-      <em>6.000 de vânzători B2B</em> și a descoperit ceva incomod: la
-      deal-uri complexe, relationship builders — modelul iubit timp de
-      decenii — performau cel mai prost. Câștigătorii erau "Challenger-ii"
-      — vânzătorii care <em>provocau</em> buyerul cu insight pe care el nu-l
-      avea singur.
-    </p>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Cele cinci profile</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Toți vânzătorii cad în <em>unul</em> din aceste cinci.</h2>
-
-    <table class="modes-table">
-      <thead>
-        <tr>
-          <th style="width: 28%;">Profil</th>
-          <th style="width: 36%;">Cum vinde</th>
-          <th>% printre top performers (complex)</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="mode-name">Challenger<em>"Te învăț ceva nou despre business-ul tău."</em></div></td>
-          <td>Teach, tailor, take control. Aduce insight provocator. Confortabil cu tensiune productivă.</td>
-          <td><strong>54%</strong> — câștigătorul clar.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Lone Wolf<em>"Fac cum știu eu."</em></div></td>
-          <td>Intuiție, instincte, nesupus de proces. Performant, dar dificil de scalat.</td>
-          <td>25%</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Hard Worker<em>"Sun mai mult, sun mai bine."</em></div></td>
-          <td>Activity-driven. Motivat. Bun la deal-uri simple, mediocru la complex.</td>
-          <td>17%</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Reactive Problem Solver<em>"Rezolv ce-mi cere."</em></div></td>
-          <td>Detail-oriented post-vânzare. Bun la implementare, slab la pipeline nou.</td>
-          <td>12%</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Relationship Builder<em>"Suntem prieteni acum."</em></div></td>
-          <td>Time-spent cu clientul, avoidance de conflict. <strong>Modelul preferat în mod tradițional.</strong></td>
-          <td><strong>7%</strong> — ultimul. Surpriza studiului.</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <div class="pullquote">
-      <p>Buyerii nu vor un prieten. Vor pe cineva care le arată ce nu văd. Relationship builder-ul evită exact conversația care vinde.</p>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Cele trei mișcări</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Ce face Challenger-ul, <em>concret</em>.</h2>
-
-    <div class="duo-box trio">
-      <div class="duo-item">
-        <h4>/ Mișcarea 01</h4>
-        <h3>Teach</h3>
-        <p>Aduce un <em>commercial insight</em> nou — ceva ce buyerul nu știa despre propriul lui business, industrie, sau cost de oportunitate. Nu fapte generale — insight specific care duce la soluția ta.</p>
-      </div>
-      <div class="duo-item">
-        <h4>/ Mișcarea 02</h4>
-        <h3>Tailor</h3>
-        <p>Adaptează insight-ul la rolul, industria, prioritățile fiecărui stakeholder. CFO-ul vrea cifre. CTO-ul vrea risk. VP Sales vrea velocity. Același insight, trei versiuni.</p>
-      </div>
-      <div class="duo-item">
-        <h4>/ Mișcarea 03</h4>
-        <h3>Take Control</h3>
-        <p>Nu evită conflictul. Împinge înapoi pe assumptions. Discută bani devreme. Refuză RFP-uri prost construite. <strong>Confortabil cu tensiune.</strong></p>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">IV</div>
-    <div class="section-header">
-      <div class="section-tag">§ 04 — Pitch structure</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Cele șase faze ale unui <em>Challenger pitch</em>.</h2>
-
-    <div class="sequence">
-      <div class="sequence-step">
-        <div class="sequence-num">i</div>
-        <div class="sequence-body">
-          <h4>Warmer</h4>
-          <p>Demonstrezi că-i înțelegi business-ul mai bine decât te aștepta. Date, observații, pattern-uri. Câștigi dreptul moral să provoci.</p>
+        <div class="sim-total">
+          <div class="sim-total-row">
+            <div class="sim-total-label">Health global</div>
+            <div class="sim-total-score"><span data-total>—</span><em>/ 10</em></div>
+          </div>
         </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">ii</div>
-        <div class="sequence-body">
-          <h4>Reframe</h4>
-          <p><strong>Momentul disruptiv.</strong> Introduci insight-ul care contrazice viziunea curentă a buyerului despre problemă. "Crezi că problema e X. De fapt e Y — și asta schimbă tot."</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">iii</div>
-        <div class="sequence-body">
-          <h4>Rational Drowning</h4>
-          <p>Hard data care suportă reframe-ul. Studii, benchmarks, costuri ascunse. Logică incontestabilă.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">iv</div>
-        <div class="sequence-body">
-          <h4>Emotional Impact</h4>
-          <p>Conectezi insight-ul la propria realitate a buyerului. "Asta sună cunoscut?" "Vezi pattern-ul ăsta și la voi?" Recunoaștere personală.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">v</div>
-        <div class="sequence-body">
-          <h4>A New Way</h4>
-          <p>Schițezi cum ar arăta lumea cu problema rezolvată — <em>fără să vinzi încă produsul.</em> Doar visiunea.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">vi</div>
-        <div class="sequence-body">
-          <h4>Your Solution</h4>
-          <p>Abia acum produsul. Și produsul e deja contextualizat ca singura cale credibilă spre "noul mod". Pitch-ul s-a vândut singur până aici.</p>
-        </div>
+
+        <button class="sim-reset" id="sim-reset">↻ Reset la mijloc</button>
       </div>
     </div>
 
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>Ai insight real, ne-evident, validat cu date</li>
-          <li>Buyerul e în Even Keel mode (status quo)</li>
-          <li>Vinzi un produs care necesită schimbare de mindset</li>
-          <li>Categorie nouă, sau disruption a unei piețe</li>
-        </ul>
+    <section style="margin-top: 80px;">
+      <div class="section-header">
+        <div class="section-tag">§ — Cum se mapează la frameworks</div>
+        <div class="section-rule"></div>
       </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>Nu ai insight diferit — atunci pari arogant</li>
-          <li>Buyerul are deja procesul stabilit</li>
-          <li>Cultură reziduală post-pandemie de evitare a conflictului</li>
-          <li>SDR / SMB transactional</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+      <h2>Dimensiunile slabe îți spun ce <em>framework</em> să tragi din raft.</h2>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER V — SANDLER                                              -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="sandler">
-    <div>
-      <div class="chapter-label">Capitolul V — Seller-led discipline</div>
-      <h1 class="chapter-title">Sandler<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>1967 — Maryland</span>
-      <span style="margin-top: 10px;"><strong>Autor</strong></span>
-      <span>David Sandler</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>SaaS mid-market,<br>services, agencies</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Buyerul controlează <em>dansul</em>. Sandler inversează cine conduce.</h2>
-    <p class="drop-cap wide">
-      Vânzătorul tradițional e flămând: spune da la fiecare cerere, livrează
-      demo-uri gratis, urmărește emailuri ne-întoarse luni de zile, oferă
-      discount-uri pentru "să închidă". Buyerul exploatează asta — natural,
-      nu vicios. Sandler propune opusul: <em>vânzătorul stabilește regulile</em>,
-      cere reciprocitate, și disqualifică agresiv. E o disciplină — mai mult
-      decât o tehnică.
-    </p>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Submarinul cu șapte compartimente</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Etanș la fiecare etaj. <em>Închizi unul</em>, deschizi următorul.</h2>
-    <p class="wide">Metafora oficială Sandler: un submarin. Fiecare compartiment trebuie sigilat înainte să treci la următorul. Sari peste? Întregul deal se umple cu apă.</p>
-
-    <div class="sequence">
-      <div class="sequence-step">
-        <div class="sequence-num">1</div>
-        <div class="sequence-body">
-          <h4>Bonding & Rapport</h4>
-          <p>Stabilești încredere și ton egal. Nu sub-servient, nu agresiv. Peer-to-peer. Aici se setează tipul de relație pe care o vrei pe tot deal-ul.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">2</div>
-        <div class="sequence-body">
-          <h4>Up-Front Contracts</h4>
-          <p>Înainte de fiecare meeting: agendă, durată, deciziile posibile la final ("yes / no / next step"). <strong>Niciodată "let's see how it goes".</strong> Eliminați "no decision".</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">3</div>
-        <div class="sequence-body">
-          <h4>Pain</h4>
-          <p>Pain Funnel (vezi mai jos) — săpat până la pain emoțional + cost cuantificat. Fără pain real, nu treci mai departe.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">4</div>
-        <div class="sequence-body">
-          <h4>Budget</h4>
-          <p>Discutați bani <em>înainte</em> de demo. "Investiția pentru o problemă de mărimea asta e de obicei $50–150K/an. Are sens să continuăm?" Disqualifică acum.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">5</div>
-        <div class="sequence-body">
-          <h4>Decision</h4>
-          <p>Cine, cum, când. Ce trebuie să vadă ca să spună da. Procesul exact. Niciun demo înainte ca asta să fie clar.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">6</div>
-        <div class="sequence-body">
-          <h4>Fulfillment</h4>
-          <p>Abia acum demo / propunere. Și acum e o formalitate — fitting pentru o problemă deja calificată, cu buget validat și proces clar.</p>
-        </div>
-      </div>
-      <div class="sequence-step">
-        <div class="sequence-num">7</div>
-        <div class="sequence-body">
-          <h4>Post-Sell</h4>
-          <p>Blochezi "buyer's remorse" și competitor-ul care intră in extremis. "E ceva care te-ar putea face să te răzgândești în următoarele două săptămâni?"</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Pain Funnel</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Șapte întrebări care duc de la <em>"avem o problemă"</em> la <em>"trebuie să rezolvăm acum"</em>.</h2>
-
-    <ul class="flags-list">
-      <li><span class="flag-num">/ 01</span><span class="flag-text">Spune-mi mai multe despre asta.</span></li>
-      <li><span class="flag-num">/ 02</span><span class="flag-text">Poți fi mai specific? Dă-mi un exemplu concret.</span></li>
-      <li><span class="flag-num">/ 03</span><span class="flag-text">De cât timp ai problema asta?</span></li>
-      <li><span class="flag-num">/ 04</span><span class="flag-text">Ce ai încercat să faci ca să o rezolvi?</span></li>
-      <li><span class="flag-num">/ 05</span><span class="flag-text">A funcționat?</span></li>
-      <li><span class="flag-num">/ 06</span><span class="flag-text">Cât crezi că te-a costat asta — în bani, timp, oameni?</span></li>
-      <li><span class="flag-num">/ 07</span><span class="flag-text">Cum te simți să fi cheltuit toți banii ăștia, iar problema să existe în continuare?</span></li>
-    </ul>
-
-    <p class="wide">Întrebarea 7 e <em>controversată</em> — dar funcționează. Aduce conversația la planul emoțional, unde se ia decizia de schimbare. Fără emoție, deal-ul rămâne "interesant" și moare amiabil în pipeline.</p>
-
-    <div class="pullquote">
-      <p>Negative reverse: când buyerul ezită, Sandler învață vânzătorul să spună "Poate nu suntem fit pentru voi" — și să oprească pitch-ul. De obicei buyerul cere să continui.</p>
-    </div>
-
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>Vinzi mid-market software / services</li>
-          <li>Cycle 2 weeks – 4 months</li>
-          <li>Vrei să elimini "no decision" din pipeline</li>
-          <li>Trainezi un SDR / AE junior</li>
-        </ul>
-      </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>Enterprise multi-stakeholder (folosește MH)</li>
-          <li>PLG / self-serve</li>
-          <li>Cultura buyerului penalizează "pushiness"</li>
-          <li>Vânzător fără disciplină — devine robotic</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- CHAPTER VI — COMMAND OF THE MESSAGE                              -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="command">
-    <div>
-      <div class="chapter-label">Capitolul VI — Value messaging</div>
-      <h1 class="chapter-title">Command of<br>the Message<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Originat</strong></span>
-      <span>2003 — Force Mgmt</span>
-      <span style="margin-top: 10px;"><strong>Folosit la</strong></span>
-      <span>Salesforce, Splunk,<br>ServiceNow, Veeam</span>
-      <span style="margin-top: 10px;"><strong>Pentru</strong></span>
-      <span>Value selling,<br>articulating ROI</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">I</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Problema</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Demo-ul tău arată <em>feature-uri</em>. Buyerul cumpără <em>rezultate</em>.</h2>
-    <p class="drop-cap wide">
-      Force Management a construit framework-ul ăsta lucrând cu sales teams
-      la Salesforce, Veeam, Splunk, ServiceNow. Premisa: vânzătorul mediu
-      vorbește despre <em>ce face produsul</em>. Vânzătorul senior vorbește
-      despre <em>ce rezolvă</em>. Vânzătorul de top vorbește despre <em>ce
-      câștigă buyerul</em> — în limbajul buyerului, cuantificat, atribuit unei
-      capabilități clare. Command of the Message e disciplina care forțează
-      tranziția asta. Se cuplează nativ cu MEDDPICC.
-    </p>
-  </section>
-
-  <section>
-    <div class="chapter-num">II</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Cele patru piese</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Patru elemente. <em>Toate</em>, sau mesajul cade.</h2>
-
-    <div class="buyers-grid">
-      <div class="buyer-card">
-        <div class="buyer-num">/ 01</div>
-        <div class="buyer-name">Positive Business <em>Outcomes</em></div>
-        <div class="buyer-tagline">"Ce vrea de fapt?"</div>
-        <div class="buyer-desc">Rezultatele finale pe care buyerul le urmărește: <strong>revenue growth, cost reduction, risk mitigation, time-to-market.</strong> Articulate în limbajul lui, nu al tău.</div>
-      </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ 02</div>
-        <div class="buyer-name">Required <em>Capabilities</em></div>
-        <div class="buyer-tagline">"Ce trebuie să poată face?"</div>
-        <div class="buyer-desc">Capabilitățile necesare pentru a obține outcome-ul. <strong>Punte între problema și produs.</strong> Aici câștigi competiția pe criterii pe care le-ai influențat.</div>
-      </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ 03</div>
-        <div class="buyer-name">Your <em>Solution</em></div>
-        <div class="buyer-tagline">"Cum livrezi capabilitățile."</div>
-        <div class="buyer-desc">Abia acum produsul. Și fiecare feature e mapat 1:1 la o capabilitate, care e mapată la un outcome. <strong>Nu vinzi feature; vinzi traseul.</strong></div>
-      </div>
-      <div class="buyer-card">
-        <div class="buyer-num">/ 04</div>
-        <div class="buyer-name">Proof <em>Points</em></div>
-        <div class="buyer-tagline">"De ce să te cred?"</div>
-        <div class="buyer-desc">Customer stories, metrici, benchmarks, case studies. <strong>Specifice pe industrie, mărime, persona.</strong> Generic = zero credibilitate la enterprise.</div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="chapter-num">III</div>
-    <div class="section-header">
-      <div class="section-tag">§ 03 — Value Framework: Before / After</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Modelul oficial — cum construiești <em>narațiunea</em>.</h2>
-
-    <div class="blue-sheet" data-label="VALUE FRAMEWORK">
-      <div class="blue-sheet-title">Persona: VP Engineering · Industry: FinTech mid-market</div>
-      <div class="blue-sheet-grid">
-        <div class="bs-field">
-          <h5>Before — Lumea Actuală</h5>
-          <p><em>Deployment cycles de 3 săptămâni.</em> 40% timp inginer pe ops manual. 2 incidente prod / lună. Audit fail pe SOC2 trail.</p>
-        </div>
-        <div class="bs-field">
-          <h5>After — Lumea Dorită</h5>
-          <p><em>Deployment în 2 ore.</em> 90% ops automate. Zero incidente nepronunțate. Audit clean. Engineering retention +20%.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Required Capabilities</h5>
-          <p>CI/CD orchestration · GitOps state management · audit trail automat · rollback in &lt; 60s · RBAC granular per environment.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Our Differentiated Value</h5>
-          <p>Singura platformă care livrează <em>toate cele 5 capabilități native</em>, fără 3 vendori stitched. -40% TCO față de combo Jenkins + Spinnaker + ArgoCD.</p>
-        </div>
-        <div class="bs-field">
-          <h5>Quantified Outcome</h5>
-          <p>Engineering velocity +35% · OpEx -$1.1M/an · audit prep de la 6 săpt la 4 zile. <em>Payback &lt; 7 luni.</em></p>
-        </div>
-        <div class="bs-field">
-          <h5>Proof</h5>
-          <p>Plaid (similar mărime), Stripe Treasury, Mercury Bank. Case study published. Reference call disponibil.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="pullquote">
-      <p>Force Management spune: dacă AE-ul nu poate articula valoarea în 60 de secunde fără slide-uri, nu o știe. Dacă nu o știe, nu o poate apăra când buyerul împinge pe preț.</p>
-    </div>
-
-    <div class="when-box">
-      <div class="when-yes">
-        <h5>Folosește când</h5>
-        <ul>
-          <li>Software / services enterprise</li>
-          <li>Categorie crowded — diferențierea = supraviețuirea</li>
-          <li>AE-ul trebuie să vândă valoare, nu funcții</li>
-          <li>Cuplezi cu MEDDPICC pentru forecast</li>
-        </ul>
-      </div>
-      <div class="when-no">
-        <h5>Sari peste când</h5>
-        <ul>
-          <li>Produs encă în search de PMF</li>
-          <li>Nu ai customer stories cuantificate</li>
-          <li>Outcome-urile încă nu sunt clare</li>
-          <li>Vinzi developer tools self-serve</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <!-- SYNTHESIS — Cum se combină                                       -->
-  <!-- ═══════════════════════════════════════════════════════════════ -->
-  <div class="chapter-divider" id="sinteza">
-    <div>
-      <div class="chapter-label">Sinteză — Cum alegi & cum combini</div>
-      <h1 class="chapter-title">Matricea<em>.</em></h1>
-    </div>
-    <div class="chapter-meta">
-      <span><strong>Context</strong></span>
-      <span>Care framework, când</span>
-      <span style="margin-top: 10px;"><strong>Combinabilitate</strong></span>
-      <span>Care merg împreună</span>
-    </div>
-  </div>
-
-  <section>
-    <div class="chapter-num">·</div>
-    <div class="section-header">
-      <div class="section-tag">§ 01 — Care framework, când</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>Niciunul nu e <em>universal</em>. Fiecare are un context propriu.</h2>
-
-    <table class="modes-table">
-      <thead>
-        <tr>
-          <th style="width: 22%;">Framework</th>
-          <th style="width: 30%;">Scenariul ideal</th>
-          <th>Punctul lui forte</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><div class="mode-name">Miller Heiman<em>Strategic Selling</em></div></td>
-          <td>Enterprise, 5+ stakeholders, $100K+, 6+ luni cycle.</td>
-          <td>Mapping de oameni și politică internă.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">MEDDIC / MEDDPICC<em>Qualification</em></div></td>
-          <td>SaaS pipeline review, forecast accuracy, dealroom hygiene.</td>
-          <td>Disciplină de calificare cuantificabilă.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">SPIN<em>Discovery</em></div></td>
-          <td>Discovery call de 30–60 min, buyer care nu-și conștientizează pain-ul.</td>
-          <td>Structura întrebărilor — Implication mai ales.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Challenger<em>Insight-led</em></div></td>
-          <td>Buyer în Even Keel, categorie nouă, ai insight nemainevăzut.</td>
-          <td>Disruption + tensiune productivă.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Sandler<em>Seller-led discipline</em></div></td>
-          <td>Mid-market software, cycle 2 săpt – 4 luni, trainezi seller-i tineri.</td>
-          <td>Up-front contracts + disqualification rapid.</td>
-        </tr>
-        <tr>
-          <td><div class="mode-name">Command of Message<em>Value framing</em></div></td>
-          <td>Categorii crowded, AE-ul trebuie să apere valoarea sub presiune de preț.</td>
-          <td>Articulare ROI + Before/After narrative.</td>
-        </tr>
-      </tbody>
-    </table>
-  </section>
-
-  <section>
-    <div class="chapter-num">·</div>
-    <div class="section-header">
-      <div class="section-tag">§ 02 — Stack-uri care funcționează</div>
-      <div class="section-rule"></div>
-    </div>
-    <h2>În practică, echipele de top <em>combină</em> 2–3 frameworks.</h2>
-
-    <div class="compare-grid">
-      <div class="compare-card">
-        <h4>Stack SaaS clasic</h4>
-        <p><strong>MEDDPICC</strong> pentru qualification & forecast · <strong>SPIN</strong> pentru discovery calls · <strong>Command of the Message</strong> pentru pitch & business case. Folosit la Salesforce, MongoDB, Datadog.</p>
-      </div>
-      <div class="compare-card">
-        <h4>Stack enterprise complex</h4>
-        <p><strong>Miller Heiman</strong> pentru account strategy & politică · <strong>MEDDPICC</strong> pentru qualification pe fiecare opportunity din cont · <strong>Challenger</strong> pentru pitch executive.</p>
-      </div>
-      <div class="compare-card">
-        <h4>Stack mid-market velocity</h4>
-        <p><strong>Sandler</strong> pentru discipline pe calls · <strong>SPIN</strong> pentru discovery · <strong>MEDDIC</strong> light pentru pipeline review. Mai puțină ceremonie, mai multă velocity.</p>
-      </div>
-    </div>
-
-    <p class="wide" style="margin-top: 40px;">Regula nescrisă: <em>un framework de account</em>, <em>unul de conversație</em>, <em>unul de message</em>. Mai mult de trei = ceremony. Mai puțin = lipsește o piesă.</p>
-  </section>
-
-  <!-- VERDICT -->
-  <div class="verdict">
-    <h3>Niciun framework nu vinde singur. Dar fără framework, vinzi doar pe <em>noroc și carismă</em>.</h3>
-    <p>Cele șase metodologii din acest compendiu nu se exclud — se completează. Miller Heiman îți spune <em>cui</em> vinzi, MEDDIC <em>cât de real</em> e dealul, SPIN <em>cum</em> deschizi conversația, Challenger <em>ce</em> spui ca să provoci, Sandler <em>cum</em> menții controlul, iar Command of the Message <em>cum</em> articulezi valoarea sub presiune. Cea mai mare oportunitate astăzi nu e să alegi unul — e să automatizezi rigoarea tuturor, ca AE-ul să nu mai piardă șase ore săptămânal completând Blue Sheets, scorecards și battle cards de mână. Aici devine framework-ul produs.</p>
+      <table class="modes-table">
+        <thead>
+          <tr>
+            <th style="width: 28%;">Dimensiune slabă</th>
+            <th>Framework care ajută</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="mode-name">Pitch vs Reality<em>Demo over-promises</em></div></td>
+            <td><strong>Command of the Message</strong> — articulează valoarea reală, nu cea visată. Plus disciplină de discovery (SPIN) ca să nu vinzi unde nu se potrivește.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">ICP vs Buyer<em>Vinzi în afara fit-ului</em></div></td>
+            <td><strong>MEDDIC</strong> + <strong>Sandler</strong> — qualification ucisă și disqualification rapidă. Up-front contracts elimină deal-urile în afara ICP.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Pricing vs Authority<em>Discount panic</em></div></td>
+            <td><strong>Command of the Message</strong> + <strong>Challenger</strong> — apăr ROI-ul cu insight, nu cu reducere. Reframe înlocuiește discount-ul.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Differentiation<em>Me-too pe categorie</em></div></td>
+            <td><strong>Challenger</strong> — singurul framework care funcționează când produsul nu e radical diferit: vânzătorul devine el diferențiatorul prin insight.</td>
+          </tr>
+          <tr>
+            <td><div class="mode-name">Cycle vs Capacity<em>Pipeline misalignment</em></div></td>
+            <td><strong>MEDDPICC</strong> pentru forecast accuracy + <strong>Miller Heiman</strong> pentru account planning. Vezi din timp ce vine, calibrezi capacitatea.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </div>
 
   <!-- FOOTER -->
@@ -2147,5 +2838,291 @@
 
 </div>
 
+<script>
+(function() {
+  'use strict';
+
+  // ════════════════════════════════════════════════
+  // TAB SYSTEM
+  // ════════════════════════════════════════════════
+  const tabs = document.querySelectorAll('.tab');
+  const panels = document.querySelectorAll('.tab-panel');
+
+  function showTab(id) {
+    let found = false;
+    tabs.forEach(t => {
+      const active = t.dataset.tab === id;
+      t.classList.toggle('active', active);
+      if (active) found = true;
+    });
+    panels.forEach(p => p.classList.toggle('active', p.id === id));
+    if (found) {
+      document.documentElement.style.scrollBehavior = 'auto';
+      window.scrollTo({top: 0});
+      document.documentElement.style.scrollBehavior = 'smooth';
+    }
+    return found;
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const id = tab.dataset.tab;
+      showTab(id);
+      history.replaceState(null, '', '#' + id);
+    });
+  });
+
+  // Intercept in-page anchor links to switch tabs
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      if (document.getElementById(id) && document.querySelector('.tab-panel#' + id)) {
+        e.preventDefault();
+        showTab(id);
+        history.replaceState(null, '', '#' + id);
+      }
+    });
+  });
+
+  // Init from URL hash
+  const initial = window.location.hash.slice(1);
+  if (!showTab(initial)) showTab('overview');
+
+  // ════════════════════════════════════════════════
+  // SIMULATOR
+  // ════════════════════════════════════════════════
+  const dims = [
+    {
+      key: 'pitch-reality',
+      label: 'Pitch / Reality',
+      sub: 'Demo vs prod',
+      inputs: ['pitch', 'reality'],
+      compute: v => {
+        // gap = pitch - reality; healthy = small gap. 10 = perfect alignment.
+        const gap = Math.max(0, v.pitch - v.reality);
+        return Math.max(0, Math.min(10, 10 - gap * 1.4));
+      }
+    },
+    {
+      key: 'icp-buyer',
+      label: 'ICP / Buyer',
+      sub: 'Fit & authority',
+      inputs: ['icp', 'authority'],
+      compute: v => {
+        // both need to be high. Use harmonic-ish — penalize weak link.
+        return Math.round((Math.min(v.icp, v.authority) * 0.6 + (v.icp + v.authority) / 2 * 0.4));
+      }
+    },
+    {
+      key: 'pricing-authority',
+      label: 'Pricing / Authority',
+      sub: 'Pricing power',
+      inputs: ['authority', 'discount'],
+      compute: v => {
+        // High authority good, high discount bad. Discount of 10 is brutal.
+        return Math.max(0, Math.min(10, v.authority - (v.discount - 5) * 0.9));
+      }
+    },
+    {
+      key: 'differentiation',
+      label: 'Differentiation',
+      sub: 'Moat & competition',
+      inputs: ['moat', 'competition'],
+      compute: v => {
+        // Average of moat (good) and competition (high=less crowded=good).
+        return Math.round((v.moat + v.competition) / 2);
+      }
+    },
+    {
+      key: 'cycle-capacity',
+      label: 'Cycle / Capacity',
+      sub: 'Predictability',
+      inputs: ['cycle', 'capacity'],
+      compute: v => {
+        // Both need to be reasonable. Penalize weak link.
+        return Math.round(Math.min(v.cycle, v.capacity) * 0.55 + (v.cycle + v.capacity) / 2 * 0.45);
+      }
+    }
+  ];
+
+  const RADIUS = 130;
+  const LABEL_R = 158;
+  const N = dims.length;
+  const state = {};
+
+  // Compute axis angle (radians) for dim index — start at top (-π/2), go clockwise
+  function axisAngle(i) {
+    return -Math.PI / 2 + i * (2 * Math.PI / N);
+  }
+
+  function polarToXY(r, angle) {
+    return [r * Math.cos(angle), r * Math.sin(angle)];
+  }
+
+  // === Build static radar elements ===
+  function buildRadar() {
+    const gridGroup = document.getElementById('radar-grid-group');
+    const axisGroup = document.getElementById('radar-axis-group');
+    const labelGroup = document.getElementById('radar-label-group');
+    const dotsGroup = document.getElementById('radar-dots-group');
+    const ns = 'http://www.w3.org/2000/svg';
+
+    // Concentric pentagons at 2, 4, 6, 8, 10
+    [0.2, 0.4, 0.6, 0.8, 1.0].forEach((scale, idx) => {
+      const points = [];
+      for (let i = 0; i < N; i++) {
+        const [x, y] = polarToXY(RADIUS * scale, axisAngle(i));
+        points.push(x.toFixed(1) + ',' + y.toFixed(1));
+      }
+      const poly = document.createElementNS(ns, 'polygon');
+      poly.setAttribute('points', points.join(' '));
+      poly.setAttribute('class', 'radar-grid' + (idx === 4 ? ' outer' : ''));
+      gridGroup.appendChild(poly);
+    });
+
+    // Axis lines + labels
+    dims.forEach((dim, i) => {
+      const angle = axisAngle(i);
+      const [ex, ey] = polarToXY(RADIUS, angle);
+      const line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', 0);
+      line.setAttribute('y1', 0);
+      line.setAttribute('x2', ex.toFixed(1));
+      line.setAttribute('y2', ey.toFixed(1));
+      line.setAttribute('class', 'radar-axis');
+      axisGroup.appendChild(line);
+
+      // Label
+      const [lx, ly] = polarToXY(LABEL_R, angle);
+      const label = document.createElementNS(ns, 'text');
+      label.setAttribute('x', lx.toFixed(1));
+      label.setAttribute('y', ly.toFixed(1));
+      label.setAttribute('class', 'radar-label');
+      // Text anchor based on position
+      const ax = Math.cos(angle);
+      let anchor = 'middle';
+      if (ax > 0.3) anchor = 'start';
+      else if (ax < -0.3) anchor = 'end';
+      label.setAttribute('text-anchor', anchor);
+      label.setAttribute('dominant-baseline', 'middle');
+      label.textContent = dim.label;
+      labelGroup.appendChild(label);
+
+      const sub = document.createElementNS(ns, 'text');
+      sub.setAttribute('x', lx.toFixed(1));
+      sub.setAttribute('y', (ly + 14).toFixed(1));
+      sub.setAttribute('class', 'radar-label-sub');
+      sub.setAttribute('text-anchor', anchor);
+      sub.setAttribute('dominant-baseline', 'middle');
+      sub.textContent = dim.sub;
+      labelGroup.appendChild(sub);
+    });
+
+    // Dots
+    dims.forEach((dim, i) => {
+      const dot = document.createElementNS(ns, 'circle');
+      dot.setAttribute('r', 4);
+      dot.setAttribute('class', 'radar-dot');
+      dot.setAttribute('data-dot', dim.key);
+      dotsGroup.appendChild(dot);
+    });
+  }
+
+  function readInputs(dim) {
+    const v = {};
+    dim.inputs.forEach(key => {
+      const el = document.querySelector('[data-input="' + dim.key + '.' + key + '"]');
+      v[key] = parseInt(el.value);
+      const valEl = document.querySelector('[data-value="' + dim.key + '.' + key + '"]');
+      if (valEl) valEl.textContent = v[key];
+    });
+    return v;
+  }
+
+  function classForScore(s) {
+    if (s >= 7) return 'good';
+    if (s >= 4) return 'warn';
+    return 'bad';
+  }
+
+  function updateDim(dim) {
+    const v = readInputs(dim);
+    const score = dim.compute(v);
+    state[dim.key] = score;
+
+    const bar = document.querySelector('[data-bar="' + dim.key + '"]');
+    if (bar) {
+      bar.style.width = (score * 10) + '%';
+      bar.className = 'sim-score-bar-fill ' + classForScore(score);
+    }
+    const labelEl = document.querySelector('[data-score="' + dim.key + '"]');
+    if (labelEl) labelEl.textContent = score.toFixed(1) + ' / 10';
+  }
+
+  function updateRadar() {
+    const points = [];
+    dims.forEach((dim, i) => {
+      const score = state[dim.key] || 0;
+      const [x, y] = polarToXY((score / 10) * RADIUS, axisAngle(i));
+      points.push(x.toFixed(1) + ',' + y.toFixed(1));
+      const dot = document.querySelector('[data-dot="' + dim.key + '"]');
+      if (dot) {
+        dot.setAttribute('cx', x.toFixed(1));
+        dot.setAttribute('cy', y.toFixed(1));
+      }
+    });
+    document.getElementById('radar-data').setAttribute('points', points.join(' '));
+  }
+
+  function updateVerdict() {
+    const scores = dims.map(d => state[d.key] || 0);
+    const total = scores.reduce((a, b) => a + b, 0);
+    const avg = total / dims.length;
+    document.querySelector('[data-total]').textContent = avg.toFixed(1);
+
+    // Find weakest
+    let weakest = dims[0];
+    dims.forEach(d => { if (state[d.key] < state[weakest.key]) weakest = d; });
+
+    let title, text;
+    if (avg >= 7.5) {
+      title = 'Sănătos. <em>Scalează</em> cu încredere.';
+      text = 'Toate dimensiunile sunt în zona verde. Cel mai slab punct rămâne <em>' + weakest.label + '</em> — monitorizează-l, dar nu îți schimbă jocul fundamental. Acum e momentul să apeși pe pipeline & hiring.';
+    } else if (avg >= 5.5) {
+      title = 'Mixt. <em>Câteva fundații</em> instabile.';
+      text = 'Slăbiciune principală: <em>' + weakest.label + '</em>. Înainte să crești pipeline-ul cu 2×, repară fundația. Altfel scalezi problema, nu business-ul. Vezi mai jos ce framework atacă exact gap-ul tău.';
+    } else if (avg >= 3.5) {
+      title = 'Roșu. <em>Reparați</em> înainte de growth.';
+      text = 'Multiple dimensiuni sub prag. <em>' + weakest.label + '</em> e cel mai grav. Discount-ul și churn-ul au devenit mecanisme de supraviețuire, nu strategie. Stop hiring sales până dimensiunile slabe ajung la 5+.';
+    } else {
+      title = 'Critic. Vinzi <em>în pierdere</em>.';
+      text = 'Sub 3.5/10 medie. Probabil ești în "growth at all costs" cu unit economics negative. <em>' + weakest.label + '</em> e gaura prin care se scurge totul. Întoarce-te la PMF discovery; sales-ul agresiv acum doar accelerează moartea.';
+    }
+
+    document.querySelector('[data-verdict-title]').innerHTML = title;
+    document.querySelector('[data-verdict-text]').innerHTML = text;
+  }
+
+  function recompute() {
+    dims.forEach(updateDim);
+    updateRadar();
+    updateVerdict();
+  }
+
+  // Wire up
+  buildRadar();
+  document.querySelectorAll('.sim-slider').forEach(s => {
+    s.addEventListener('input', recompute);
+  });
+
+  document.getElementById('sim-reset').addEventListener('click', () => {
+    document.querySelectorAll('.sim-slider').forEach(s => { s.value = 5; });
+    recompute();
+  });
+
+  // Initial render
+  recompute();
+})();
+</script>
 </body>
 </html>
